@@ -24,10 +24,11 @@ public class Vector2D {
         y *= speed;
     }
 
+
+    
     public double getX() {
         return x;
     }
-
     public double getY() {
         return y;
     }
