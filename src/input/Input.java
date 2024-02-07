@@ -2,19 +2,33 @@ package input;
 
 import java.awt.event.*;
 
-public class Input implements ActionListener, KeyListener, MouseListener {
+import javax.swing.JPanel;
 
-    private boolean[] keyBuffer = new boolean[255];
+public class Input extends JPanel implements ActionListener, KeyListener, MouseListener {
+
+    //input buffer
+    public boolean[] keyBuffer;
+
+    //costruttore
+    public Input() { 
+        keyBuffer = new boolean[255]; 
+        addKeyListener(this);
+        setFocusable(true);
+    }
 
 
+    
 
+
+    //main method to get the single state of a key
+    public boolean getKeyState(int i) { return keyBuffer[i]; }
 
 
     @Override
     public void keyPressed(KeyEvent e) {     
 
         if (e.getKeyCode() == KeyEvent.VK_W) {
-            keyBuffer[e.getKeyCode()] = true;  
+            keyBuffer[e.getKeyCode()] = true;
         }
         else if (e.getKeyCode() == KeyEvent.VK_S) {
             keyBuffer[e.getKeyCode()] = true;
@@ -65,6 +79,8 @@ public class Input implements ActionListener, KeyListener, MouseListener {
     }
 
 
+
+
 //not needed
 
     @Override
@@ -87,16 +103,5 @@ public class Input implements ActionListener, KeyListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {}
-
-
-    public boolean getKeyBuffer(int i) {
-        return keyBuffer[i];
-    }
-
-
-    public void setKeyBuffer(boolean[] keyBuffer) {
-        this.keyBuffer = keyBuffer;
-    }
-
-
+    
 }

@@ -4,13 +4,9 @@ import utility.Vector2D;
 
 public class Player extends Entity {
 
-    //makes the object move
-    private Vector2D vector;
-
 
     public Player(int x, int y, int width, int height, String imgSrc) {
         super(x, y, width, height, imgSrc);
-        vector = new Vector2D(x, y);
     }
     
 
@@ -19,10 +15,10 @@ public class Player extends Entity {
 
 
     @Override
-    public void move(int x, int y) {
+    public void move(Vector2D vector) {
 
-        
-
+        setX((int)vector.getX());
+        setY((int)vector.getY());
     }
 
     @Override
@@ -31,13 +27,6 @@ public class Player extends Entity {
     }
 
     
-
-    public int getX() { return getPosition().getX(); }
-    
-
-
-
-    public int getY() { return getPosition().getY(); }
 
 
     public Vector2D getVector() {

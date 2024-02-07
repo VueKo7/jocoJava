@@ -4,6 +4,8 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import utility.Vector2D;
+
 public abstract class Entity {
     
     //an Entity has a position and a size
@@ -21,37 +23,16 @@ public abstract class Entity {
         size = new Size(width, height);
 
         //setting icon
-        icon = new ImageIcon(imgSrc).getImage().getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
+        icon = new ImageIcon(imgSrc).getImage().
+        getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
     }
 
 
     //adding moving methods
-    public abstract void move(int x, int y);
+    public abstract void move(Vector2D v);
 
     public abstract boolean collision(Entity e);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private void setIconSrc(String imgSrc) {
-        setIcon(new ImageIcon(imgSrc).getImage());
-    }
 
     public Size getSize() { return size; }
     public void setSize(Size size) {
@@ -64,13 +45,18 @@ public abstract class Entity {
     }
 
     public Position getPosition() { return position; }
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setPosition(int x, int y) {
+        this.position.setX(x);
+        this.position.setY(y);
     }
 
+    //set&get X
+    public int getX() { return position.getX(); }
     public void setX(int x) {
         position.setX(x);
     }
+    //set&get Y
+    public int getY() { return position.getY(); }
     public void setY(int y) {
         position.setY(y);
     }
