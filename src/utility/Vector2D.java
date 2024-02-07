@@ -1,4 +1,4 @@
-package input;
+package utility;
 public class Vector2D {
 
     private double x;
