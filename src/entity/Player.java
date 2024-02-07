@@ -7,7 +7,7 @@ public class Player extends Entity {
     //makes the object move
     private Vector2D vector;
 
-    
+
     public Player(int x, int y, int width, int height, String imgSrc) {
         super(x, y, width, height, imgSrc);
         vector = new Vector2D(x, y);
@@ -19,13 +19,18 @@ public class Player extends Entity {
 
 
     @Override
-    public void move(int x, int y) {}
+    public void move(int x, int y) {
 
+        
 
-
-    public void setX(int x) {
-        setX(x);
     }
+
+    @Override
+    public boolean collision(Entity e) {
+        return true;
+    }
+
+    
 
     public int getX() { return getPosition().getX(); }
     

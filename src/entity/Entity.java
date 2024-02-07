@@ -1,33 +1,34 @@
 package entity;
 
+import java.awt.Image;
+
 import javax.swing.ImageIcon;
 
 public abstract class Entity {
     
-    //an Entity object has a position and a size
+    //an Entity has a position and a size
     private Position position;
     private Size size;
-    private ImageIcon icon;
+    private Image icon;
 
 
     public Entity(int x, int y, int width, int height, String imgSrc) {
         
         //setting position
-        position.setX(x);
-        position.setY(y);
+        position = new Position(x, y);
 
         //setting size
-        setSize(size);
+        size = new Size(width, height);
 
         //setting icon
-        setIconSrc(imgSrc);
+        icon = new ImageIcon(imgSrc).getImage().getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
     }
 
 
     //adding moving methods
     public abstract void move(int x, int y);
 
-
+    public abstract boolean collision(Entity e);
 
 
 
@@ -49,7 +50,7 @@ public abstract class Entity {
 
 
     private void setIconSrc(String imgSrc) {
-        setIcon(new ImageIcon(imgSrc));
+        setIcon(new ImageIcon(imgSrc).getImage());
     }
 
     public Size getSize() { return size; }
@@ -57,8 +58,8 @@ public abstract class Entity {
         this.size = size;
     }
 
-    public ImageIcon getIcon() { return icon; }
-    public void setIcon(ImageIcon icon) {
+    public Image getIcon() { return icon; }
+    public void setIcon(Image icon) {
         this.icon = icon;
     }
 

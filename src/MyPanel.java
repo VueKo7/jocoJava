@@ -94,7 +94,7 @@ public class MyPanel extends JPanel implements ActionListener, KeyListener, Mous
         //g.fillRect(snakeHead.x, snakeHead.y, tileSize, tileSize);
         //g.fillRect(snakeHead.x*tileSize, snakeHead.y*tileSize, tileSize, tileSize);
         //g.fill3DRect(hero.x*tileSize, hero.y*tileSize, tileSize, tileSize, true);
-        g.drawImage(hero.getIcon().getImage(), 
+        g.drawImage(hero.getIcon(), 
             hero.getX()*hero.getSize().getWidth(), 
             hero.getY()*hero.getSize().getHeight(), null);
 		
@@ -128,7 +128,8 @@ public class MyPanel extends JPanel implements ActionListener, KeyListener, Mous
         if (gameOver) {
             gameLoop.stop();
         }
-    }  
+    }
+    
 
     @Override
     public void keyPressed(KeyEvent e) {     
