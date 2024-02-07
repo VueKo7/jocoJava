@@ -15,10 +15,10 @@ public class Player extends Entity {
 
 
     @Override
-    public void move(Vector2D vector) {
+    public void move() {
 
-        setX((int)vector.getX());
-        setY((int)vector.getY());
+        setX(getX()+1);
+        setY(getY()+1);
     }
 
     @Override
@@ -27,12 +27,4 @@ public class Player extends Entity {
     }
 
     
-
-
-    public Vector2D getVector() {
-        return vector;
-    }
-    public void setVector(Vector2D vector) {
-        this.vector = vector;
-    }
 }

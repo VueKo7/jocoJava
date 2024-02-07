@@ -29,7 +29,7 @@ public abstract class Entity {
 
 
     //adding moving methods
-    public abstract void move(Vector2D v);
+    public abstract void move();
 
     public abstract boolean collision(Entity e);
 

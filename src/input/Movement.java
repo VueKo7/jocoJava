@@ -32,8 +32,10 @@ public class Movement {
 
         vector.normalize();
         vector.multiply(5);
+
+        System.out.println(vector.toString());
     }
 
-
+    public Vector2D getVector2d() { return vector; }
 
 }

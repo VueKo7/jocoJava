@@ -32,10 +32,6 @@ public class MyPanel extends JPanel implements ActionListener {
         Movement movement = new Movement();
 
         hero = new Player(5, 5, 20, 20, "icons/hero/hero.png");
-
-        //enemy = new Tile(10, 10, "icons/enemy/shinobuPadoru.jpg");
-        //random = new Random();
-        //placeEnemy();
         
 		//game timer
 		gameLoop = new Timer(10, this); //how long it takes to start timer, milliseconds gone between frames| DELTA_TIME???
@@ -103,6 +99,7 @@ public class MyPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) { //called every x milliseconds by gameLoop timer
         movement.update_position();
+        hero.move();
         if(gameOver) {
             gameLoop.stop();
         }

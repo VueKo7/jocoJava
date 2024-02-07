@@ -17,9 +17,6 @@ public class Input extends JPanel implements ActionListener, KeyListener, MouseL
     }
 
 
-    
-
-
     //main method to get the single state of a key
     public boolean getKeyState(int i) { return keyBuffer[i]; }
 
