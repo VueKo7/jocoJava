@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Random;
 import javax.swing.*;
 
 import entity.Player;
@@ -39,6 +38,7 @@ public class MyPanel extends JPanel implements ActionListener, KeyListener, Mous
     //game logic
     int velocityX;
     int velocityY;
+    int vX=0, vY=0;
     Timer gameLoop;
     int score = 0;
 
@@ -167,8 +167,10 @@ public class MyPanel extends JPanel implements ActionListener, KeyListener, Mous
             velocityY = 1;
         }
         
-        hero.x += velocityX;
-        hero.y += velocityY;
+        vX += velocityX;
+        vY += velocityY;
+        hero.setX(vX); 
+        hero.setY(vY);
     }
 
     

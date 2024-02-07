@@ -1,7 +1,6 @@
 package entity;
 
 import javax.swing.ImageIcon;
-import utility.Vector2D;
 
 public abstract class Entity {
     
@@ -11,11 +10,11 @@ public abstract class Entity {
     private ImageIcon icon;
 
 
-    public Entity(Position pos, Size size, String imgSrc) {
+    public Entity(int x, int y, int width, int height, String imgSrc) {
         
         //setting position
-        position.setX(pos.getX());
-        position.setY(pos.getY());
+        position.setX(x);
+        position.setY(y);
 
         //setting size
         setSize(size);
@@ -26,10 +25,6 @@ public abstract class Entity {
 
 
     //adding moving methods
-
-    
-
-
     public abstract void move(int x, int y);
 
 

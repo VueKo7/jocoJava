@@ -13,7 +13,6 @@ public class Position {
 
     
 
-
     public int getX() {
         return x;
     }
