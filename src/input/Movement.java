@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 
 
 public class Movement {
-    
+
     Vector2D vector;
 
     public Movement() {
@@ -29,7 +29,7 @@ public class Movement {
 
         vector = new Vector2D(deltaX, deltaY);
         vector.normalize();
-        vector.multiply(5);
+        vector.multiply(10);
 
         System.out.println(vector.toString());
     }

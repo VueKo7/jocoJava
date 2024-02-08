@@ -32,10 +32,8 @@ public abstract class Entity {
     public boolean collision(Entity e) { return true; }
 
 
-    public Size getSize() { return size; }
-    public void setSize(Size size) {
-        this.size = size;
-    }
+    public int getHeight() {return size.getHeight();}
+    public int getWidth() {return size.getWidth();}
 
     public Image getIcon() { return icon; }
     public void setIcon(Image icon) {

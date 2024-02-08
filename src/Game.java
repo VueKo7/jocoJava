@@ -1,8 +1,3 @@
-import java.awt.*;
-import java.awt.image.BufferStrategy;
-
-import javax.swing.*;
-
 import entity.Player;
 import input.Input;
 
@@ -17,11 +12,12 @@ public class Game {
 
     public Game() {
 
-        input = new Input();
         //input viene passato al frame per addKeyListener()
+        input = new Input();
         frame = new MyFrame(input);
 
-        hero = new Player(5, 5, 20, 20, "icons/hero/hero.png");
+
+        hero = new Player(5, 5, 100, 100, "icons/hero/hero.png");
 	}	
 
 
