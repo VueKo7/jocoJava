@@ -7,7 +7,7 @@ public class Game {
 
     Player hero;
 
-    Obstacle wall;
+    Obstacle wall1, wall2, wall3, wall4, wall5;
     
     Input input;
     Display display;
@@ -20,9 +20,26 @@ public class Game {
 
         hero = new Player(5, 5, 50, 50, "icons/hero/hero.png");
 
-        wall = new Obstacle(200, 200, 50, 50, "icons/enemy/shinobuPadoru.jpg");
-        wall.setVisible(true);
-        Entity.addEntity(wall);
+        Entity.addEntity(hero);
+
+        wall1 = new Obstacle(100, 200, 50, 50, "icons/enemy/shinobuPadoru.jpg");
+        wall1.setVisible(true);
+        wall2 = new Obstacle(200, 200, 50, 50, "icons/enemy/shinobuPadoru.jpg");
+        wall2.setVisible(true);
+
+        wall3 = new Obstacle(300, 500, 200, 50, "icons/enemy/shinobuPadoru.jpg");
+        wall3.setVisible(true);
+        
+        wall4 = new Obstacle(400, 200, 50, 50, "icons/enemy/shinobuPadoru.jpg");
+        wall4.setVisible(true);
+        wall5 = new Obstacle(500, 200, 50, 50, "icons/enemy/shinobuPadoru.jpg");
+        wall5.setVisible(true);
+        
+        Entity.addEntity(wall1);
+        Entity.addEntity(wall2);
+        Entity.addEntity(wall3);
+        Entity.addEntity(wall4);
+        Entity.addEntity(wall5);
 	}	
 
 

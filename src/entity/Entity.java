@@ -13,7 +13,7 @@ public abstract class Entity {
     private Image icon;
 
     //gestisco tutte le entita'
-    static ArrayList<Entity> entities;
+    static ArrayList<Entity> entities = new ArrayList<>();;
 
 
     public Entity(int x, int y, int width, int height, String imgSrc) {
@@ -27,14 +27,16 @@ public abstract class Entity {
         //setting icon
         icon = new ImageIcon(imgSrc).getImage().
         getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
-
-        entities = new ArrayList<>();
     }
 
 
 
     public static void addEntity(Entity e) {
         entities.add(e);
+    }
+
+    public static ArrayList<Entity> getEntities() {
+        return entities;
     }
 
     //TO-DO x LIMONE

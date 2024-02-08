@@ -1,6 +1,9 @@
 import input.Input;
 
 import javax.swing.*;
+
+import entity.Entity;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
@@ -36,19 +39,11 @@ public class Display extends JFrame {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        graphics.drawImage(
-            game.hero.getIcon(),
-            game.hero.getX(),
-            game.hero.getY(),
-            null
-        );
 
-        graphics.drawImage(
-            game.wall.getIcon(),
-            game.wall.getX(),
-            game.wall.getY(),
-            null
-        );
+        Entity.getEntities().forEach((Entity e) -> {
+            graphics.drawImage(e.getIcon(), e.getX(), e.getY(), null);
+        });
+
 
         graphics.dispose();
         bufferStrategy.show();
