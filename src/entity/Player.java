@@ -19,14 +19,13 @@ public class Player extends Entity {
     
 
 
-    public void move(Input input) {
 
+    public void move(Input input) {
+    
         Vector2D vector = movement.getVector2d();
         movement.update_position(input);
 
         setX((int)vector.getX());
         setY((int)vector.getY());
     }
-
-    
 }

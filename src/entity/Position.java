@@ -14,6 +14,10 @@ public class Position {
     }
 
 
+
+
+
+
     
     //metodo per la ricezione della coordinata delle ascisse
     public int getX() { return x; }

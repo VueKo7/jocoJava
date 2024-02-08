@@ -43,6 +43,13 @@ public class Display extends JFrame {
             null
         );
 
+        graphics.drawImage(
+            game.wall.getIcon(),
+            game.wall.getX(),
+            game.wall.getY(),
+            null
+        );
+
         graphics.dispose();
         bufferStrategy.show();
     }

@@ -1,3 +1,4 @@
+import entity.Obstacle;
 import entity.Player;
 import input.Input;
 
@@ -5,7 +6,7 @@ public class Game {
 
     Player hero;
 
-    //game logic
+    Obstacle wall;
     
     Input input;
     Display display;
@@ -17,16 +18,11 @@ public class Game {
         display = new Display(input);
 
         hero = new Player(5, 5, 100, 100, "icons/hero/hero.png");
+
+
+        wall = new Obstacle(200, 200, 50, 50, "icons/enemy/shinobuPadoru.jpg");
+        wall.setVisible(true);
 	}	
-
-
-
-
-
-
-
-
-
 
 
 
@@ -45,8 +41,7 @@ public class Game {
     //4. dalla classe movement ottiene lo stato del keyBuffer
     //5. allora viene aggiornata la Posizione di Player tramite Vector2D
     public void update() {
-        //if(hero.collision(hero))
-            hero.move(input);
+        hero.move(input);
     }
 
 }

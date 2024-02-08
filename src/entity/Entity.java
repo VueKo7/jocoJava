@@ -3,7 +3,6 @@ package entity;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-import input.Input;
 
 public abstract class Entity {
     
@@ -27,13 +26,11 @@ public abstract class Entity {
     }
 
 
-    //adding moving methods
-    public abstract void move(Input input);
 
     public boolean collision(Entity e) {
     
-        if(getX() == e.getX()+1 || getX() == e.getX()-1
-        && getY() == e.getY()+1 || getY() == e.getY()-1) {
+        if(getX()*getWidth()+1 == e.getX()*getWidth() 
+        || getY()*getHeight()+1 == e.getY()*getHeight()) {
             return true;
         }
         return false;
