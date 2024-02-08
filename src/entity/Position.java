@@ -1,7 +1,7 @@
 package entity;
 
 //La classe Position permette di settare le posizioni delle entità e di modificarne le loro posizioni 
-//passandogli le nuove coordinate. Viene usata dalla classe Entity e Movement
+//passandogli le nuove coordinate. Viene usata dalla classe Entity
 public class Position {
     //Coordinata delle ascisse
     private int x;
