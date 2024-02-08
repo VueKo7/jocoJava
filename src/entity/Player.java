@@ -6,8 +6,11 @@ import utility.Vector2D;
 
 public class Player extends Entity {
 
+    //attributi + quelli ereditati da Entity
     Movement movement;
-    
+    //Position position;
+    //Size size;
+    //Image icon;
 
     public Player(int x, int y, int width, int height, String imgSrc) {
         super(x, y, width, height, imgSrc);
@@ -29,6 +32,4 @@ public class Player extends Entity {
     public boolean collision(Entity e) {
         return true;
     }
-
-    
 }
