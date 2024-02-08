@@ -1,8 +1,9 @@
 package entity;
 
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
+
+import input.Input;
 
 public abstract class Entity {
     
@@ -27,9 +28,16 @@ public abstract class Entity {
 
 
     //adding moving methods
-    //public abstract void move(Input input);
+    public abstract void move(Input input);
 
-    public boolean collision(Entity e) { return true; }
+    public boolean collision(Entity e) {
+    
+        if(getX() == e.getX()+1 || getX() == e.getX()-1
+        && getY() == e.getY()+1 || getY() == e.getY()-1) {
+            return true;
+        }
+        return false;
+    }
 
 
     public int getHeight() {return size.getHeight();}

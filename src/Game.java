@@ -8,30 +8,45 @@ public class Game {
     //game logic
     
     Input input;
-    MyFrame frame;
+    Display display;
 
     public Game() {
 
         //input viene passato al frame per addKeyListener()
         input = new Input();
-        frame = new MyFrame(input);
-
+        display = new Display(input);
 
         hero = new Player(5, 5, 100, 100, "icons/hero/hero.png");
 	}	
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     //aggiornamento del frame con le Entity di Game
     public void render() {
-        frame.render(this); //'this' is Game class
+        display.render(this); //'this' is Game class
     }
 
     //aggiornamento della posizione del player in base ad input
     //1. Input riceve i dati da tastiera
     //2. Input viene passato alla classe Player tramite il metodo .move(input)
     //3. Input viene passato alla classe Movement
+    //4. dalla classe movement ottiene lo stato del keyBuffer
+    //5. allora viene aggiornata la Posizione di Player tramite Vector2D
     public void update() {
-        hero.move(input);
+        //if(hero.collision(hero))
+            hero.move(input);
     }
 
 }

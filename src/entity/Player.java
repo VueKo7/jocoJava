@@ -28,8 +28,5 @@ public class Player extends Entity {
         setY((int)vector.getY());
     }
 
-    @Override
-    public boolean collision(Entity e) {
-        return true;
-    }
+    
 }

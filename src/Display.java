@@ -4,14 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-public class MyFrame extends JFrame {
+public class Display extends JFrame {
 
     final int BOARD_WIDTH = 1280;
     final int BOARD_HEIGHT = 720;
 
     private Canvas canvas;
 
-    public MyFrame(Input input) {
+    public Display(Input input) {
         setTitle("My Awesome 2D game.Game");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);

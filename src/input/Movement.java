@@ -15,19 +15,19 @@ public class Movement {
 
     public void update_position(Input input) {
 
-        int deltaX = 0;
-        int deltaY = 0;
+        int directionX = 0;
+        int directionY = 0;
 
         if(input.getKeyState(KeyEvent.VK_W)) //VK_W is pressed 
-            deltaY = -1;    
+            directionY = -1;    
         if(input.getKeyState(KeyEvent.VK_A)) //VK_A is pressed
-            deltaX = -1; 
+            directionX = -1; 
         if(input.getKeyState(KeyEvent.VK_S)) //VK_S is pressed
-            deltaY = 1;   
+            directionY = 1;   
         if(input.getKeyState(KeyEvent.VK_D)) //VK_D is pressed
-            deltaX = 1;   
+            directionX = 1;   
 
-        vector = new Vector2D(deltaX, deltaY);
+        vector = new Vector2D(directionX, directionY);
         vector.normalize();
         vector.multiply(10);
 
