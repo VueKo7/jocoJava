@@ -4,8 +4,6 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-import utility.Vector2D;
-
 public abstract class Entity {
     
     //an Entity has a position and a size
@@ -29,9 +27,9 @@ public abstract class Entity {
 
 
     //adding moving methods
-    public abstract void move();
+    //public abstract void move(Input input);
 
-    public abstract boolean collision(Entity e);
+    public boolean collision(Entity e) { return true; }
 
 
     public Size getSize() { return size; }

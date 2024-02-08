@@ -1,18 +1,49 @@
-import javax.swing.JFrame;
+import input.Input;
 
-public class MyFrame extends JFrame{
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferStrategy;
 
-    public MyFrame(final int BOARD_WIDTH,final int BOARD_HEIGHT) {
-	    this.setSize(BOARD_WIDTH, BOARD_HEIGHT); //set Width & Height
-        this.setLocationRelativeTo(null); //Center the Frame
-        this.setResizable(false); //if resizable
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //press X on close
+public class MyFrame extends JFrame {
 
-        MyPanel panel = new MyPanel(BOARD_WIDTH, BOARD_HEIGHT); //Create the Panel with same DIM as Frame
-        this.add(panel); //Adding the Panel to the Frame
-        this.pack(); //Force the Panel to fit into the Frame
-        panel.requestFocus();
-        this.setVisible(true); //if Frame is Visible
+    final int BOARD_WIDTH = 1280;
+    final int BOARD_HEIGHT = 720;
+
+    private Canvas canvas;
+
+    public MyFrame(Input input) {
+        setTitle("My Awesome 2D game.Game");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+
+        canvas = new Canvas();
+        canvas.setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
+        canvas.setFocusable(false);
+        add(canvas);
+        addKeyListener(input);
+        pack();
+
+        canvas.createBufferStrategy(3);
+
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
+    public void render(Game game){
+        BufferStrategy bufferStrategy = canvas.getBufferStrategy();
+        Graphics graphics = bufferStrategy.getDrawGraphics();
+
+        graphics.setColor(Color.BLACK);
+        graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        graphics.drawImage(
+            game.hero.getIcon(),
+            game.hero.getX(),
+            game.hero.getY(),
+            null
+        );
+
+        graphics.dispose();
+        bufferStrategy.show();
+    }
 }

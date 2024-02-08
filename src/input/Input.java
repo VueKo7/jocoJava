@@ -1,10 +1,11 @@
 package input;
 
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import javax.swing.JPanel;
-
-public class Input extends JPanel implements ActionListener, KeyListener, MouseListener {
+public class Input implements KeyListener, MouseListener {
 
     //input buffer
     public boolean[] keyBuffer;
@@ -12,73 +13,24 @@ public class Input extends JPanel implements ActionListener, KeyListener, MouseL
     //costruttore
     public Input() { 
         keyBuffer = new boolean[255]; 
-        addKeyListener(this);
-        setFocusable(true);
     }
 
 
     //main method to get the single state of a key
     public boolean getKeyState(int i) { return keyBuffer[i]; }
 
-
     @Override
-    public void keyPressed(KeyEvent e) {     
-
-        if (e.getKeyCode() == KeyEvent.VK_W) {
-            keyBuffer[e.getKeyCode()] = true;
-        }
-        else if (e.getKeyCode() == KeyEvent.VK_S) {
-            keyBuffer[e.getKeyCode()] = true;
-        }
-        else if (e.getKeyCode() == KeyEvent.VK_A) {
-            keyBuffer[e.getKeyCode()] = true;
-        }
-        else if (e.getKeyCode() == KeyEvent.VK_D) {
-            keyBuffer[e.getKeyCode()] = true;
-        }
-
-        /*
-        //RIGHT-TOP
-        if(velocityX == 1 && e.getKeyCode() == KeyEvent.VK_W) {
-            velocityY = -1;
-        }
-        //RIGHT-BOTTOM
-        else if(velocityX == 1 && e.getKeyCode() == KeyEvent.VK_S) {
-            velocityY = 1;
-        }
-        //LEFT-TOP
-        else if(velocityX == -1 && e.getKeyCode() == KeyEvent.VK_W) {
-            velocityY = -1;
-        }
-        //LEFT-BOTTOM
-        else if(velocityX == -1 && e.getKeyCode() == KeyEvent.VK_S) {
-            velocityY = 1;
-        }
-         */
-    }
-
+    public void keyPressed(KeyEvent e) { keyBuffer[e.getKeyCode()] = true; }
     
     @Override
-    public void keyReleased(KeyEvent e) {
-        
-        if(e.getKeyCode() == KeyEvent.VK_W) {
-            keyBuffer[e.getKeyCode()] = false;
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_S) {
-            keyBuffer[e.getKeyCode()] = false;
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_D) {
-            keyBuffer[e.getKeyCode()] = false;
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_A) {
-            keyBuffer[e.getKeyCode()] = false;
-        }
-    }
-
-
+    public void keyReleased(KeyEvent e) { keyBuffer[e.getKeyCode()] = false; }
 
 
 //not needed
+
+    
+    @Override
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void mouseClicked(MouseEvent e) {}
@@ -94,11 +46,4 @@ public class Input extends JPanel implements ActionListener, KeyListener, MouseL
 
     @Override
     public void mouseExited(MouseEvent e) {}
-
-    @Override
-    public void keyTyped(KeyEvent e) {}
-
-    @Override
-    public void actionPerformed(ActionEvent e) {}
-    
 }

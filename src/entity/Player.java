@@ -1,24 +1,28 @@
 package entity;
 
+import input.Input;
+import input.Movement;
 import utility.Vector2D;
 
 public class Player extends Entity {
 
+    Movement movement;
+    
 
     public Player(int x, int y, int width, int height, String imgSrc) {
         super(x, y, width, height, imgSrc);
+        movement = new Movement();
     }
     
 
 
+    public void move(Input input) {
 
+        Vector2D vector = movement.getVector2d();
+        movement.update_position(input);
 
-
-    @Override
-    public void move() {
-
-        setX(getX()+1);
-        setY(getY()+1);
+        setX((int)vector.getX());
+        setY((int)vector.getY());
     }
 
     @Override
