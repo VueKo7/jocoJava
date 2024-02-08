@@ -15,9 +15,6 @@ public class Obstacle extends Entity {
     }
 
 
-    
-
-
     public void setVisible(boolean b) { panel.setVisible(b); }
 
 

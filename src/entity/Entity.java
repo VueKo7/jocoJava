@@ -2,14 +2,18 @@ package entity;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import java.util.ArrayList;
 
 
 public abstract class Entity {
     
-    //an Entity has a position and a size
+    //an Entity has a Position, Size and an Img
     private Position position;
     private Size size;
     private Image icon;
+
+    //gestisco tutte le entita'
+    static ArrayList<Entity> entities;
 
 
     public Entity(int x, int y, int width, int height, String imgSrc) {
@@ -23,16 +27,19 @@ public abstract class Entity {
         //setting icon
         icon = new ImageIcon(imgSrc).getImage().
         getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
+
+        entities = new ArrayList<>();
     }
 
 
 
+    public static void addEntity(Entity e) {
+        entities.add(e);
+    }
+
+    //TO-DO x LIMONE
     public boolean collision(Entity e) {
     
-        if(getX()*getWidth()+1 == e.getX()*getWidth() 
-        || getY()*getHeight()+1 == e.getY()*getHeight()) {
-            return true;
-        }
         return false;
     }
 

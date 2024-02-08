@@ -1,3 +1,4 @@
+import entity.Entity;
 import entity.Obstacle;
 import entity.Player;
 import input.Input;
@@ -17,11 +18,11 @@ public class Game {
         input = new Input();
         display = new Display(input);
 
-        hero = new Player(5, 5, 100, 100, "icons/hero/hero.png");
-
+        hero = new Player(5, 5, 50, 50, "icons/hero/hero.png");
 
         wall = new Obstacle(200, 200, 50, 50, "icons/enemy/shinobuPadoru.jpg");
         wall.setVisible(true);
+        Entity.addEntity(wall);
 	}	
 
 

@@ -20,11 +20,13 @@ public class Movement {
         int directionX = 0;
         //Attributo contenete la direzione delle ordinate(0=fermo in y, -1=spostamento verso l'alto, 1=spostamento verso il basso)
         int directionY = 0;
+
+
         //Se l'input corrisponde al codice della W, allora sto andando verso l'alto, altrimenti
-        if(input.getKeyState(KeyEvent.VK_W)) 
+        if(input.getKeyState(KeyEvent.VK_W)) //VK_W is pressed
             directionY = -1;
         //Se l'input corrisponde al codice della S, allora sto andando verso il basso, altrimenti    
-        else if(input.getKeyState(KeyEvent.VK_S))
+        else if(input.getKeyState(KeyEvent.VK_S)) //VK_S is pressed
             directionY = 1; 
         //Se l'input corrisponde al codice della A, allora sto andando verso sinistra, altrimenti
         if(input.getKeyState(KeyEvent.VK_A)) //VK_A is pressed
@@ -32,14 +34,15 @@ public class Movement {
         //Se l'input corrisponde al codice della D, allora sto andando verso destra
         else if(input.getKeyState(KeyEvent.VK_D)) //VK_D is pressed
             directionX = 1;   
+
+
         //inizializzo il Vectore2D passandogli le direzioni x e y
         vector = new Vector2D(directionX, directionY);
-        //richiamo la normalize
         vector.normalize();
-        //richiamo la multiply passandogli la velocità desiseraa
+        //richiamo la multiply passandogli la velocità desiderata
         vector.multiply(10);
-        //stampo le direzioni 
-        System.out.println(vector.toString());
+        
+        System.out.println(vector.toString()); //stampo le direzioni 
     }
     //metodo per la ricezione del Vector2D
     public Vector2D getVector2d() { return vector; }

@@ -25,7 +25,10 @@ public class Player extends Entity {
         Vector2D vector = movement.getVector2d();
         movement.update_position(input);
 
-        setX((int)vector.getX());
-        setY((int)vector.getY());
+        for(Entity e : entities)
+            if(!collision(e)) {
+                setX((int)vector.getX());
+                setY((int)vector.getY());
+            }    
     }
 }
