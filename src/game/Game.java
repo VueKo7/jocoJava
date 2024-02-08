@@ -1,3 +1,4 @@
+package game;
 import entity.Entity;
 import entity.Obstacle;
 import entity.Player;

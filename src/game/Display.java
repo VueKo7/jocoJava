@@ -1,3 +1,4 @@
+package game;
 import input.Input;
 
 import javax.swing.*;

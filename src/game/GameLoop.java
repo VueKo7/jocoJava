@@ -1,5 +1,4 @@
-
-
+package game;
 public class GameLoop implements Runnable {
 
     private Game game;
