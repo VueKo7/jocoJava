@@ -1,10 +1,8 @@
 package game;
 import input.Input;
-
-import javax.swing.*;
-
 import entity.Entity;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
@@ -37,16 +35,30 @@ public class Display extends JFrame {
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
         Graphics graphics = bufferStrategy.getDrawGraphics();
 
+        //visualizzazione Canvas
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        graphics.setColor(Color.WHITE);
+        graphics.drawRect(0, 0, BOARD_WIDTH-1, BOARD_HEIGHT-1);
 
+        //visualizzazione Camera
+        graphics.setColor(Color.RED);
+        graphics.drawRect(BOARD_WIDTH/4, BOARD_HEIGHT/4, BOARD_WIDTH/2, BOARD_HEIGHT/2);
+
+        graphics.drawImage(game.hero.getIcon(), game.hero.getX(), game.hero.getY(), null);
+            System.out.println(game.hero.toString());
 
         Entity.getEntities().forEach((Entity e) -> {
             graphics.drawImage(e.getIcon(), e.getX(), e.getY(), null);
+            System.out.println(e.toString());
         });
 
 
         graphics.dispose();
         bufferStrategy.show();
     }
+
+
+    public int getHeight() {return BOARD_HEIGHT;}
+    public int getWidth() {return BOARD_WIDTH;}
 }

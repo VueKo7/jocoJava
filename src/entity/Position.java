@@ -8,7 +8,7 @@ public class Position {
     //Coordinata delle ordinate
     private int y;
     //Costruttore di default, dove vengono passate le coordinate e salvate
-    Position(int x, int y) {
+    public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -23,6 +23,7 @@ public class Position {
     public int getX() { return x; }
     //metodo per il settaggio della coordinata delle ascisse
     public void setX(int x) {
+        
         this.x += x;
     }
     //metodo per la ricezione della coordinata delle ordinate

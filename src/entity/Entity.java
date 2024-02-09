@@ -2,6 +2,8 @@ package entity;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+
+
 import java.util.ArrayList;
 
 
@@ -40,9 +42,21 @@ public abstract class Entity {
     }
 
     //TO-DO x LIMONE
-    public boolean collision(Entity e) {
-    
-        return false;
+    public boolean collision(int directionX, int directionY) {
+
+        //if(collisionX(directionX, directionY) && collisionY(directionX, directionY))
+        boolean isCollide = false;
+        for(Entity e : entities) {
+
+            if(getY()+directionY <= e.getY()+e.getHeight()) isCollide = true; //going up
+
+            else if(getY()+getHeight()+directionY >= e.getY()) isCollide = true; //going down
+
+            else if(getX()+getWidth()+directionX >= e.getX()) isCollide = true; //going right
+
+            else if(getX()+directionX <= e.getX()+e.getWidth()) isCollide = true; //going left
+        }
+        return isCollide;
     }
 
 
@@ -70,4 +84,7 @@ public abstract class Entity {
     public void setY(int y) {
         position.setY(y);
     }
+
+    @Override
+    public String toString() {return "{}" + getX() + "," + getY() + "}";}
 }

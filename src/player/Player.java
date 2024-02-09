@@ -1,5 +1,6 @@
-package entity;
+package player;
 
+import entity.Entity;
 import input.Input;
 import input.Movement;
 import utility.Vector2D;
@@ -21,13 +22,12 @@ public class Player extends Entity {
 
 
     public void move(Input input) {
-    
+        
         Vector2D vector = movement.getVector2d();
-        movement.update_position(input);
-
+        movement.update_position(input, this);
         
         setX((int)vector.getX());
         setY((int)vector.getY());
-             
     }
+
 }
