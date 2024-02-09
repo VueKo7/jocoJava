@@ -3,7 +3,6 @@ package entity;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-
 import java.util.ArrayList;
 
 
@@ -41,23 +40,25 @@ public abstract class Entity {
         return entities;
     }
 
-    //TO-DO x LIMONE
-    public boolean collision(int directionX, int directionY) {
+//************************************************************* */
+    public boolean collisionX(Entity entity, int dX) {
+    
+        if(getX()+getWidth()+dX >= entity.getX()
+        && getX()+dX <= entity.getX()+entity.getWidth()) 
+            return true;
 
-        //if(collisionX(directionX, directionY) && collisionY(directionX, directionY))
-        boolean isCollide = false;
-        for(Entity e : entities) {
-
-            if(getY()+directionY <= e.getY()+e.getHeight()) isCollide = true; //going up
-
-            else if(getY()+getHeight()+directionY >= e.getY()) isCollide = true; //going down
-
-            else if(getX()+getWidth()+directionX >= e.getX()) isCollide = true; //going right
-
-            else if(getX()+directionX <= e.getX()+e.getWidth()) isCollide = true; //going left
-        }
-        return isCollide;
+        return false;
     }
+
+    public boolean collisionY(Entity entity, int dY) {
+
+        if(getY()+getHeight()+dY >= entity.getY()
+        && getY()+dY <= entity.getY()+entity.getHeight()) 
+            return true;
+
+        return false;
+    }
+    //********************************************************* */
 
 
     public int getHeight() {return size.getHeight();}

@@ -46,11 +46,11 @@ public class Display extends JFrame {
         graphics.drawRect(BOARD_WIDTH/4, BOARD_HEIGHT/4, BOARD_WIDTH/2, BOARD_HEIGHT/2);
 
         graphics.drawImage(game.hero.getIcon(), game.hero.getX(), game.hero.getY(), null);
-            System.out.println(game.hero.toString());
+            //System.out.println(game.hero.toString());
 
         Entity.getEntities().forEach((Entity e) -> {
             graphics.drawImage(e.getIcon(), e.getX(), e.getY(), null);
-            System.out.println(e.toString());
+            //System.out.println(e.toString());
         });
 
 

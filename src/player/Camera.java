@@ -8,7 +8,6 @@
  */
 package player;
 
-import entity.Entity;
 import entity.Position;
 import entity.Size;
 
@@ -16,16 +15,28 @@ public class Camera {
     
     Position position;
     Size size;
-    Entity observer;
+    Player observer;
 
 
-    public Camera(int x, int y, int width, int height, Entity observer) {
+    public Camera(int x, int y, int width, int height, Player observer) {
         position = new Position(x, y);
         size = new Size(width, height);
         this.observer = observer;
     }
 
 
+    public void keepInside() {
+
+        boolean xCollision = observer.collisionX(position, size, observer.movement.getDirectionX());
+        boolean yCollision = observer.collisionY(position, size, observer.movement.getDirectionY());
+
+        if(xCollision && yCollision)
+        {
+            observer.movement.setDirectionX(0);
+            observer.movement.setDirectionY(0);
+            System.out.println("scimmia");
+        }
+    }
     
 
 
