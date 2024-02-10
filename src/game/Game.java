@@ -47,6 +47,7 @@ public class Game {
     public void update() {
         
         hero.move();
+        //camera.keepInside();
 
         hero.toString();
     }

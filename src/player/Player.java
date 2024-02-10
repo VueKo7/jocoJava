@@ -1,5 +1,7 @@
 package player;
 
+import java.awt.Rectangle;
+
 import entity.Entity;
 import entity.Position;
 import entity.Size;
@@ -11,11 +13,12 @@ import utility.Vector2D;
 public class Player extends Entity {
 
     //attributi + quelli ereditati da Entity
-    //contiene i movimenti del player
     Movement movement;
+    Camera camera;
     //Position position;
     //Size size;
     //Image icon;
+    //Rectangle hitBox;
 
     //Costruttore per creare il player, richiama il costruttore dell'entità
     //x=posizioni ascisse
@@ -23,29 +26,31 @@ public class Player extends Entity {
     //widht=lunghezza 
     //height=altezza
     //imgSrc=percorso dell'immagine
+    //hitBox=rettangolo che delinea lo spazio dell'entita'
+
     public Player(int x, int y, int width, int height, String imgSrc, Input input) {
         super(x, y, width, height, imgSrc);
+        setHitBox(new Rectangle(x+8, y+16, width/2, height/2));
         movement = new Movement(input);
     }
     
 
+    //******************************************************************************************** */
     public boolean collisionX(Position pos, Size size, int dX) {
 
-        if(getX()+getWidth()+dX >= pos.getX()
-        && getX()+dX <= pos.getX()+size.getWidth()) 
-            return true;
-
-        return false;
+        return (getX()+dX <= pos.getX() //from left to right
+        || getX()+getWidth()+dX >= pos.getX()+size.getWidth()); //form right to left
+            
     }
 
     public boolean collisionY(Position pos, Size size, int dY) {
 
-        if(getY()+getHeight()+dY >= pos.getY()
-        && getY()+dY <= pos.getY()+size.getHeight()) 
-            return true;
-
-        return false;
+        return (getY()+dY >= pos.getY() //from up to down
+        || getY()+getHeight()+dY <= pos.getY()+size.getHeight()); //from down to up
+            
     }
+    //******************************************************************************************** */
+
 
     //Methodo per far muovere il player, passato Input, crea un nuovo Vector2D e aggiorna le direzioni di movement
     public void move() {

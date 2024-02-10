@@ -1,5 +1,7 @@
 package entity;
 
+import java.awt.Rectangle;
+
 import utility.MyPanel;
 
 public class Obstacle extends Entity {
@@ -12,6 +14,7 @@ public class Obstacle extends Entity {
         super(x, y, width, height, imgSrc);
 
         panel = new MyPanel(x, y, width, height);
+        setHitBox(new Rectangle(x, y, width, height));
     }
 
 

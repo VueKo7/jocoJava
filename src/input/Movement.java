@@ -4,6 +4,7 @@ import utility.Vector2D;
 import java.awt.event.KeyEvent;
 
 import entity.Entity;
+import player.Player;
 
 //Classe che utilizzando il Vectore2D, dove verranno salvate le direzioni di X e Y di un'entità
 //Permette di modificare le direzioni in base all'input. Viene richiamata nella classe Player
@@ -22,39 +23,85 @@ public class Movement {
     }
 
     //Metodo principale che passandogli Input, assegna al Vector2D le direzioni in base agli imput.
-    public void update_position(Entity player) {
+    public void update_position(Player player) {
+
+        //System.out.println("{"+getDirectionX()+","+getDirectionY()+"}");
+        
 
         //Attributo contenete la direzione delle ascisse(0=fermo in x, -1=spostamento verso sinistra, 1=spostamento verso destra)
         directionX = 0;
         //Attributo contenete la direzione delle ordinate(0=fermo in y, -1=spostamento verso l'alto, 1=spostamento verso il basso)
         directionY = 0;
 
-    
-        if(input.getKeyState(KeyEvent.VK_W)) //VK_W is pressed
+        
+        if(input.getKeyState(KeyEvent.VK_W)) //VK_W is pressed | going up
             directionY = -1;    
-        else if(input.getKeyState(KeyEvent.VK_S)) //VK_S is pressed
+        else if(input.getKeyState(KeyEvent.VK_S)) //VK_S is pressed | going down
             directionY = 1; 
 
-        if(input.getKeyState(KeyEvent.VK_A)) //VK_A is pressed
+        if(input.getKeyState(KeyEvent.VK_A)) //VK_A is pressed | going left
             directionX = -1; 
-        else if(input.getKeyState(KeyEvent.VK_D)) //VK_D is pressed
-            directionX = 1;   
+        else if(input.getKeyState(KeyEvent.VK_D)) //VK_D is pressed | goign right
+            directionX = 1;
 
-        System.out.println("{"+directionX+","+directionY+"}");
 
         for(Entity obstacle : Entity.getEntities())
         {
-            boolean xCollision = player.collisionX(obstacle, directionX*getSpeed());
-            boolean yCollision = player.collisionY(obstacle, directionY*getSpeed());
+            boolean yCollision = false;
+            boolean xCollision = false;
+
+            xCollision = player.collisionX(obstacle, directionX*speed);
+            yCollision = player.collisionY(obstacle, directionY*speed);
 
             
-                if(xCollision && yCollision)
+            //check if you actually collide with the obstacle
+            if(yCollision && xCollision)
+            {      
+                /*CONTROLLO CHE SERVE VENGA CONSULTATO SOLO DOPO CHE IL PLAYER CAMBIA DIREZIONE
+                 * 
+                 * DOMINIO DI COLLISIONE: tutto lo spazio verticale determinato dalla LARGHEZZA dell'ostacolo
+                 * CODOMINIO DI COLLISIONE: tutto lo spazio orizzontale determinato dall'ALTEZZA dell'ostacolo
+                 * 
+                 * esempio:
+                 * mi sto muovendo dal basso verso l'alto trovandomi sotto ad un ostacolo QUINDI:
+                 * in X sono in costante collisione(dominio di collisione)
+                 * in Y sarò in collisione non appena mi scontro in Y con l'ostacolo(codominio di collisione)
+                 * 
+                 * appena mi scontro in Y controllo che nella direzione opposta (-directionY) ci sia un ostacolo
+                 * mentre mi sto spostando verso questo ostacolo dietro di me sarà libero:
+                 * il controllo collisione mi darà quindi FALSE perchè non sto collidendo nella direzioneo opposta
+                 * quindi negato nell'IF avrò TRUE e quindi la directionY sarà posta a 0
+                 * 
+                 * caso 1: cambio direzione e vado verso il basso
+                 * la directionY viene aggiornata sopra e il primo controllo di collisione darà FALSE
+                 * allora questo if NON viene eseguito e il giocatore riesce ad andare verso il basso
+                 * 
+                 * caso 2: cambio direzione e vado verso destra/sinistra
+                 * in X mi trovo nel dominio di collisione
+                 * il controllo di collisione darà TRUE che negato è FALSE quindi la mia directionX rimane invariata
+                 */
+
+                //dopo aver cambiato direzione, domanda se alle sue spalle ha un ostacolo
+                boolean reverseXCollision = player.collisionX(obstacle, -directionX*speed);
+                boolean reverseYCollision = player.collisionY(obstacle, -directionY*speed);
+                
+                //impone che tu NON abbia un'ostacolo a destra/sinistra per fermarti in X
+                if(!reverseXCollision)
                     directionX = 0;
-                    
-                if(yCollision && xCollision)
+                
+                //impone che tu NON abbia un'ostacolo sopra/sotto per fermarti in Y
+                if(!reverseYCollision)
                     directionY = 0;
-            
+            }
+
         }
+        
+
+
+
+        
+
+        //System.out.println("{"+directionX+","+directionY+"}");
     
         //inizializzo il Vectore2D passandogli le direzioni x e y
         vector = new Vector2D(directionX, directionY);
