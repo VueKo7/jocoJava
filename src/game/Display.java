@@ -46,7 +46,8 @@ public class Display extends JFrame {
         graphics.drawRect(BOARD_WIDTH/4, BOARD_HEIGHT/4, BOARD_WIDTH/2, BOARD_HEIGHT/2);
 
         graphics.drawImage(game.hero.getIcon(), game.hero.getX(), game.hero.getY(), null);
-            //System.out.println(game.hero.toString());
+        graphics.setColor(Color.RED);
+        graphics.drawRect(game.hero.getXHitbox(), game.hero.getYHitbox(), (int)game.hero.getHitBox().getWidth(), (int)game.hero.getHitBox().getHeight());
 
         Entity.getEntities().forEach((Entity e) -> {
             graphics.drawImage(e.getIcon(), e.getX(), e.getY(), null);

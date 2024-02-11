@@ -1,7 +1,5 @@
 package player;
 
-import java.awt.Rectangle;
-
 import entity.Entity;
 import entity.Position;
 import entity.Size;
@@ -30,7 +28,8 @@ public class Player extends Entity {
 
     public Player(int x, int y, int width, int height, String imgSrc, Input input) {
         super(x, y, width, height, imgSrc);
-        setHitBox(new Rectangle(x+8, y+16, width/2, height/2));
+        getHitBox().translate(width/4, height/4);
+        getHitBox().setSize(width/2, height/2);
         movement = new Movement(input);
     }
     
@@ -61,6 +60,9 @@ public class Player extends Entity {
         //Metodi settaggi della posizione del player(Appartiene ad entità)
         setX((int)vector.getX());
         setY((int)vector.getY());
+
+        setXHitbox((int)vector.getX());
+        setYHitbox((int)vector.getY());
     }
 
 }

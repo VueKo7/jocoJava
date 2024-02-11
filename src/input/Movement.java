@@ -96,11 +96,6 @@ public class Movement {
 
         }
         
-
-
-
-        
-
         //System.out.println("{"+directionX+","+directionY+"}");
     
         //inizializzo il Vectore2D passandogli le direzioni x e y

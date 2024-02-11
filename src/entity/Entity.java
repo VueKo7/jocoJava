@@ -30,26 +30,35 @@ public abstract class Entity {
         size = new Size(width, height);
 
         //setting hitbox
-        hitBox = new Rectangle();
+        hitBox = new Rectangle(x, y, width, height);
 
         //setting icon
         icon = new ImageIcon(imgSrc).getImage().
         getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
     }
 
-
+    //COLLISIONI
 //************************************************************* */
     public boolean collisionX(Entity entity, int dX) {
 
-        return ((getX()+getWidth()+dX) >= entity.getX()
-        && (getX()+dX) <= (entity.getX()+entity.getWidth())); 
-    
+        int playerX = getHitBox().x;
+        int playerWidth = getHitBox().width;
+
+        int entityX = entity.getHitBox().x;
+        int entityWidth = entity.getHitBox().width;
+
+        return (playerX+playerWidth+dX*2 >= entityX && playerX+dX*2 <= entityX+entityWidth); 
     }
 
     public boolean collisionY(Entity entity, int dY) {
 
-        return ((getY()+getHeight()+dY) >= entity.getY()
-        && (getY()+dY) <= (entity.getY()+entity.getHeight())); 
+        int playerY = getHitBox().y;
+        int playerHeight = getHitBox().height;
+
+        int entityY = entity.getHitBox().y;
+        int entityHeight = entity.getHitBox().height;
+
+        return (playerY+playerHeight+dY*2 >= entityY && playerY+dY*2 <= entityY+entityHeight); 
         
     }
 //********************************************************* */
@@ -73,7 +82,7 @@ public abstract class Entity {
 
 
     //set&get positionX
-    public int getX() { return position.getX(); }
+    public int getX() {return position.getX();}
     public void setX(int x) {position.setX(x);}
 
 
@@ -86,7 +95,13 @@ public abstract class Entity {
     public Rectangle getHitBox() {return hitBox;}
     public void setHitBox(Rectangle hitBox) {this.hitBox = hitBox;}
 
+    public int getXHitbox() {return this.hitBox.x;}
+    public void setXHitbox(int x) {this.hitBox.x += x;}
+
+    public int getYHitbox() {return this.hitBox.y;}
+    public void setYHitbox(int y) {this.hitBox.y += y;}
+
 
     @Override
-    public String toString() {return "{}" + getX() + "," + getY() + "}";}
+    public String toString() {return "{" + getX() + "," + getY() + "}";}
 }
