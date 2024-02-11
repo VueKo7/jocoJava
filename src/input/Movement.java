@@ -44,16 +44,25 @@ public class Movement {
         else if(input.getKeyState(KeyEvent.VK_D)) //VK_D is pressed | goign right
             directionX = 1;
 
+        
+        boolean xCameraCollision = player.collisionX(player.getCameraPos(), player.getCameraSize(), directionX*speed);
+        boolean yCameraCollision = player.collisionY(player.getCameraPos(), player.getCameraSize(), directionY*speed);
 
+        if(xCameraCollision || yCameraCollision)
+        {
+            if(xCameraCollision)
+                directionX = 0;
+            
+            if(yCameraCollision)
+                directionY = 0;
+        }
+
+        
         for(Entity obstacle : Entity.getEntities())
         {
-            boolean yCollision = false;
-            boolean xCollision = false;
+            boolean xCollision = player.collisionX(obstacle, directionX*speed);
+            boolean yCollision = player.collisionY(obstacle, directionY*speed);
 
-            xCollision = player.collisionX(obstacle, directionX*speed);
-            yCollision = player.collisionY(obstacle, directionY*speed);
-
-            
             //check if you actually collide with the obstacle
             if(yCollision && xCollision)
             {      
@@ -90,7 +99,7 @@ public class Movement {
                     directionX = 0;
                 
                 //impone che tu NON abbia un'ostacolo sopra/sotto per fermarti in Y
-                if(!reverseYCollision)
+                if(!reverseYCollision || player.collisionY(player.getCameraPos(), player.getCameraSize(), directionY))
                     directionY = 0;
             }
 

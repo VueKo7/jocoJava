@@ -22,9 +22,8 @@ public class Game {
         input = new Input();
         display = new Display(input);
 
-        hero = new Player(display.getWidth()/2, display.getHeight()/2, 80, 80, "icons/hero/hero.png", input);
-        camera = new Camera(display.getWidth()/4, display.getHeight()/4, display.getWidth()/2, display.getHeight()/2, hero);
-
+        camera = new Camera(display.getWidth()/4, display.getHeight()/4, display.getWidth()/2, display.getHeight()/2);
+        hero = new Player(display.getWidth()/2, display.getHeight()/2, 80, 80, "icons/hero/hero.png", input, camera);
 
         wall = new Obstacle(300, 500, 200, 50, "icons/enemy/shinobuPadoru.jpg");
         wall.setVisible(true);
@@ -51,8 +50,5 @@ public class Game {
     public void update() {
         
         hero.move();
-        //camera.keepInside();
-
-        hero.toString();
     }
 }

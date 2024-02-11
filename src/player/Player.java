@@ -26,8 +26,9 @@ public class Player extends Entity {
     //imgSrc=percorso dell'immagine
     //hitBox=rettangolo che delinea lo spazio dell'entita'
 
-    public Player(int x, int y, int width, int height, String imgSrc, Input input) {
+    public Player(int x, int y, int width, int height, String imgSrc, Input input, Camera camera) {
         super(x, y, width, height, imgSrc);
+        this.camera = camera;
         getHitBox().translate(width/4, height/4);
         getHitBox().setSize(width/2, height/2);
         movement = new Movement(input);
@@ -44,12 +45,11 @@ public class Player extends Entity {
 
     public boolean collisionY(Position pos, Size size, int dY) {
 
-        return (getY()+dY >= pos.getY() //from up to down
-        || getY()+getHeight()+dY <= pos.getY()+size.getHeight()); //from down to up
+        return (getY()+dY <= pos.getY() //from down to up
+        || getY()+getHeight()+dY >= pos.getY()+size.getHeight()); //from up to down
             
     }
     //******************************************************************************************** */
-
 
     //Methodo per far muovere il player, passato Input, crea un nuovo Vector2D e aggiorna le direzioni di movement
     public void move() {
@@ -64,5 +64,12 @@ public class Player extends Entity {
         setXHitbox((int)vector.getX());
         setYHitbox((int)vector.getY());
     }
+
+
+
+
+    public Size getCameraSize() {return camera.size;}
+
+    public Position getCameraPos() {return camera.position;}
 
 }

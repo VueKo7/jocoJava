@@ -47,7 +47,7 @@ public abstract class Entity {
         int entityX = entity.getHitBox().x;
         int entityWidth = entity.getHitBox().width;
 
-        return (playerX+playerWidth+dX*2 >= entityX && playerX+dX*2 <= entityX+entityWidth); 
+        return (playerX+playerWidth+dX >= entityX-dX && playerX+dX <= entityX+entityWidth-dX); 
     }
 
     public boolean collisionY(Entity entity, int dY) {
@@ -58,7 +58,7 @@ public abstract class Entity {
         int entityY = entity.getHitBox().y;
         int entityHeight = entity.getHitBox().height;
 
-        return (playerY+playerHeight+dY*2 >= entityY && playerY+dY*2 <= entityY+entityHeight); 
+        return (playerY+playerHeight+dY >= entityY-dY && playerY+dY <= entityY+entityHeight-dY); 
         
     }
 //********************************************************* */
@@ -100,6 +100,9 @@ public abstract class Entity {
 
     public int getYHitbox() {return this.hitBox.y;}
     public void setYHitbox(int y) {this.hitBox.y += y;}
+
+    public int getHitBoxWidth() {return (int)hitBox.getWidth();}
+    public int getHitBoxHeight() {return (int)hitBox.getHeight();}
 
 
     @Override
