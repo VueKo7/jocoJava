@@ -35,29 +35,36 @@ public class Display extends JFrame {
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
         Graphics graphics = bufferStrategy.getDrawGraphics();
 
+
         //visualizzazione Canvas
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         graphics.setColor(Color.WHITE);
         graphics.drawRect(0, 0, BOARD_WIDTH-1, BOARD_HEIGHT-1);
 
+
         //visualizzazione Camera
         graphics.setColor(Color.RED);
         graphics.drawRect(BOARD_WIDTH/4, BOARD_HEIGHT/4, BOARD_WIDTH/2, BOARD_HEIGHT/2);
 
+
         //visualizzazione personaggio
-        
-        //animation
         graphics.drawImage(game.hero.getFrame(), game.hero.getX(), game.hero.getY(), null);
+        
+        graphics.setColor(Color.BLUE);
+        graphics.drawRect(game.hero.getX(), game.hero.getY(), game.hero.getWidth(), game.hero.getHeight());
+        
         graphics.setColor(Color.RED);
         graphics.drawRect(game.hero.getXHitbox(), game.hero.getYHitbox(), game.hero.getHitBoxWidth(), game.hero.getHitBoxHeight());
 
+
         //visualizzazione entità a schermo
         Entity.getEntities().forEach((Entity e) -> {
-            if(canvas.contains(e.getHitBox().getLocation()))
+            if(canvas.contains(e.getHitBox().getLocation())) {
                 graphics.drawImage(e.getFrame(), e.getX(), e.getY(), null);
-            //System.out.println(e.toString());
+            }
         });
+
 
         graphics.dispose();
         bufferStrategy.show();

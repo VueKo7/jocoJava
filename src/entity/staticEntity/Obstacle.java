@@ -1,30 +1,25 @@
-package entity;
+package entity.staticEntity;
 
 import java.awt.Image;
-import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-import utility.MyPanel;
 
-public class Obstacle extends Entity {
-
-    MyPanel panel;
+public class Obstacle extends StaticEntity {
 
     public Obstacle(int x, int y, int width, int height) {
         //creo l'ostacolo come entita'
         super(x, y, width, height);
 
-        panel = new MyPanel(x, y, width, height);
-        setHitBox(new Rectangle(x, y, width, height));
-
-        //setting the img
+        //setting the sprite
         setFrame(new ImageIcon("icons/enemy/shinobuPadoru.jpg").getImage().
         getScaledInstance(getWidth(), getHeight(), Image.SCALE_AREA_AVERAGING));
+
+        setVisible(true);
     }
 
 
-    public void setVisible(boolean b) { panel.setVisible(b); }
+    
 
 
 }

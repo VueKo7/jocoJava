@@ -6,7 +6,7 @@
  * 
  * camera_collision controlla che l'osservatore rimanga dentro la camera
  */
-package player;
+package entity.dinamicEntity.player;
 
 import java.awt.Rectangle;
 

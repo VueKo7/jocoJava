@@ -1,9 +1,9 @@
 package game;
 import entity.Entity;
-import entity.Obstacle;
+import entity.dinamicEntity.player.Camera;
+import entity.dinamicEntity.player.Player;
+import entity.staticEntity.Obstacle;
 import input.Input;
-import player.Camera;
-import player.Player;
 
 public class Game {
 
@@ -23,13 +23,10 @@ public class Game {
         display = new Display(input);
 
         camera = new Camera(display.getWidth()/4, display.getHeight()/4, display.getWidth()/2, display.getHeight()/2);
-        hero = new Player(display.getWidth()/2, display.getHeight()/2, 80, 80, input, camera);
+        hero = new Player(display.getWidth()/2, display.getHeight()/2, 100, 150, input, camera);
 
         wall = new Obstacle(300, 500, 200, 50);
-        wall.setVisible(true);
-
         wall1 = new Obstacle(300, 200, 200, 50);
-        wall.setVisible(true);
         
         Entity.addEntity(wall);
         Entity.addEntity(wall1);

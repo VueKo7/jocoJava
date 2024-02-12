@@ -2,23 +2,17 @@ package entity;
 
 import java.awt.Image;
 import java.awt.Rectangle;
-import javax.swing.ImageIcon;
 import java.util.ArrayList;
 
 
 public abstract class Entity {
-    
-    int screenWidth = 1280;
-    int screenHeight = 720;
 
-    //an Entity has a Position, Size and an Img
+    //an Entity has a Position, Size and and a Sprite
     private Position position;
     private Size size;
     private Rectangle hitBox;
 
-    //animazioni
-    public Image[] movingRight;
-    public Image[] movingLeft;
+    //Frame dello sprite che verrà disegnato
     public Image frame;
     
     //gestisco tutte le entita'
@@ -33,54 +27,13 @@ public abstract class Entity {
         //setting size
         size = new Size(width, height);
 
-        //setting hitbox
+        //setting defoutl hitbox
+        //its OverWritten by MovingEntities
         hitBox = new Rectangle(x, y, width, height);
 
     }
 
-    //COLLISIONI
-//************************************************************* */
-    public boolean collisionX(Entity entity, int dX) {
 
-        int playerX = getHitBox().x;
-        int playerWidth = getHitBox().width;
-
-        int entityX = entity.getHitBox().x;
-        int entityWidth = entity.getHitBox().width;
-
-        return (playerX+playerWidth+dX >= entityX-dX && playerX+dX <= entityX+entityWidth-dX); 
-    }
-
-    public boolean collisionY(Entity entity, int dY) {
-
-        int playerY = getHitBox().y;
-        int playerHeight = getHitBox().height;
-
-        int entityY = entity.getHitBox().y;
-        int entityHeight = entity.getHitBox().height;
-
-        return (playerY+playerHeight+dY >= entityY-dY && playerY+dY <= entityY+entityHeight-dY); 
-        
-    }
-//********************************************************* */
-
-    
-
-    public void setSprites(String[] movingLeft, String[] movingRight) {
-
-        this.movingLeft = new Image[2];
-        this.movingRight = new Image[2];
-
-        this.movingRight[0] = new ImageIcon(movingRight[0]).getImage().
-            getScaledInstance(getWidth(), getHeight(), Image.SCALE_AREA_AVERAGING);
-        this.movingRight[1] = new ImageIcon(movingRight[1]).getImage().
-            getScaledInstance(getWidth(), getHeight(), Image.SCALE_AREA_AVERAGING);
-
-        this.movingLeft[0] = new ImageIcon(movingLeft[0]).getImage().
-            getScaledInstance(getWidth(), getHeight(), Image.SCALE_AREA_AVERAGING);
-        this.movingLeft[1] = new ImageIcon(movingLeft[1]).getImage().
-            getScaledInstance(getWidth(), getHeight(), Image.SCALE_AREA_AVERAGING);
-    }
 
     //set&get Frame
     public Image getFrame() {return this.frame;}
@@ -97,11 +50,6 @@ public abstract class Entity {
     public int getHeight() {return size.getHeight();}
     //get width
     public int getWidth() {return size.getWidth();}
-
-
-    //get&set image
-    public Image[] movingLeftImages() {return movingLeft;}
-    public Image[] movingRightImages() {return movingRight;}
 
 
     //set&get positionX
