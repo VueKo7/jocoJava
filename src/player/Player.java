@@ -1,5 +1,7 @@
 package player;
 
+import java.awt.Image;
+
 import entity.Entity;
 import entity.Position;
 import entity.Size;
@@ -13,6 +15,9 @@ public class Player extends Entity {
     //attributi + quelli ereditati da Entity
     Movement movement;
     Camera camera;
+    int spriteTiming = 0;
+    int spriteSide = 1;
+    Image frame;
     //Position position;
     //Size size;
     //Image icon;
@@ -26,27 +31,35 @@ public class Player extends Entity {
     //imgSrc=percorso dell'immagine
     //hitBox=rettangolo che delinea lo spazio dell'entita'
 
-    public Player(int x, int y, int width, int height, String imgSrc, Input input, Camera camera) {
-        super(x, y, width, height, imgSrc);
+    public Player(int x, int y, int width, int height, Input input, Camera camera) {
+        
+        super(x, y, width, height);
         this.camera = camera;
         getHitBox().translate(width/4, height/4);
         getHitBox().setSize(width/2, height/2);
         movement = new Movement(input);
+
+        //setting animations
+        String[] movingLeft = {"icons/hero/movingRight/movingRight1.png",
+                                "icons/hero/movingRight/movingRight2.png"};
+        String[] movingRight = {"icons/hero/movingRight/movingRight2.png",
+                                "icons/hero/movingRight/movingRight1.png"};
+        super.setSprites(movingLeft, movingRight);
     }
     
 
     //******************************************************************************************** */
-    public boolean collisionX(Position pos, Size size, int dX) {
+    public boolean collisionX(int dX) {
 
-        return (getX()+dX <= pos.getX() //from left to right
-        || getX()+getWidth()+dX >= pos.getX()+size.getWidth()); //form right to left
-            
+        return (getX()+dX <= camera.getX() //from left to right
+        || getX()+getWidth()+dX >= camera.getX()+camera.getWidth()); //form right to left
+        
     }
 
-    public boolean collisionY(Position pos, Size size, int dY) {
+    public boolean collisionY(int dY) {
 
-        return (getY()+dY <= pos.getY() //from down to up
-        || getY()+getHeight()+dY >= pos.getY()+size.getHeight()); //from up to down
+        return (getY()+dY <= camera.getY() //from down to up
+        || getY()+getHeight()+dY >= camera.getY()+camera.getHeight()); //from up to down
             
     }
     //******************************************************************************************** */
@@ -63,9 +76,39 @@ public class Player extends Entity {
 
         setXHitbox((int)vector.getX());
         setYHitbox((int)vector.getY());
+
+        updateSprite();
     }
 
 
+    public void updateSprite() {
+
+        if(spriteTiming > 10)
+        {
+            if(movement.getDirectionX() == 1)
+                if(spriteSide == 1) {
+                    setFrame(movingRight[0]);
+                    spriteSide = 2;
+                }    
+                else {
+                    setFrame(movingRight[1]);
+                    spriteSide = 1;
+                }    
+            else //è fermo oppure va a sinistra
+                if(spriteSide == 1) {
+                    setFrame(movingLeft[0]);
+                    spriteSide = 2;
+                }    
+                else {
+                    setFrame(movingLeft[1]);
+                    spriteSide = 1;
+                }    
+                
+            spriteTiming = 0;
+        }
+        spriteTiming++;
+
+    }
 
 
     public Size getCameraSize() {return camera.size;}

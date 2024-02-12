@@ -29,30 +29,13 @@ public class Camera {
     }
 
 
-    public void keepInside() {
-
-        int dX = observer.movement.getDirectionX();
-        int dY = observer.movement.getDirectionY();
-        int speed = observer.movement.getSpeed();
-
-        boolean xCollision = observer.collisionX(position, size, dX*speed);
-        boolean yCollision = observer.collisionY(position, size, dY*speed);
-
-        System.out.println(xCollision);
-        
-        //impone che tu NON abbia un'ostacolo a destra/sinistra per fermarti in X
-        if(xCollision)
-            observer.movement.setDirectionX(0);
-
-        //impone che tu NON abbia un'ostacolo sopra/sotto per fermarti in Y
-        if(yCollision)
-            observer.movement.setDirectionY(0);
-        
-
-        //if(cameraArea.intersects(observer.getHitBox()));
-            
-    }
     
+
+    public int getX() {return position.getX();}
+    public int getY() {return position.getY();}
+
+    public int getWidth() {return size.getWidth();}
+    public int getHeight() {return size.getHeight();}
 
 
 }

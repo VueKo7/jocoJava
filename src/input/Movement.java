@@ -45,17 +45,15 @@ public class Movement {
             directionX = 1;
 
         
-        boolean xCameraCollision = player.collisionX(player.getCameraPos(), player.getCameraSize(), directionX*speed);
-        boolean yCameraCollision = player.collisionY(player.getCameraPos(), player.getCameraSize(), directionY*speed);
+        boolean xCameraCollision = player.collisionX(directionX*speed);
+        boolean yCameraCollision = player.collisionY(directionY*speed);
 
-        if(xCameraCollision || yCameraCollision)
-        {
-            if(xCameraCollision)
-                directionX = 0;
-            
-            if(yCameraCollision)
-                directionY = 0;
-        }
+        if(xCameraCollision)
+            directionX = 0;
+        
+        if(yCameraCollision)
+            directionY = 0;
+        
 
         
         for(Entity obstacle : Entity.getEntities())
@@ -99,13 +97,14 @@ public class Movement {
                     directionX = 0;
                 
                 //impone che tu NON abbia un'ostacolo sopra/sotto per fermarti in Y
-                if(!reverseYCollision || player.collisionY(player.getCameraPos(), player.getCameraSize(), directionY))
+                if(!reverseYCollision)
                     directionY = 0;
             }
 
         }
-        
-        //System.out.println("{"+directionX+","+directionY+"}");
+
+
+
     
         //inizializzo il Vectore2D passandogli le direzioni x e y
         vector = new Vector2D(directionX, directionY);

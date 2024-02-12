@@ -14,14 +14,18 @@ public abstract class Entity {
     //an Entity has a Position, Size and an Img
     private Position position;
     private Size size;
-    private Image icon;
     private Rectangle hitBox;
 
+    //animazioni
+    public Image[] movingRight;
+    public Image[] movingLeft;
+    public Image frame;
+    
     //gestisco tutte le entita'
-    static ArrayList<Entity> entities = new ArrayList<>();;
+    static ArrayList<Entity> entities = new ArrayList<>();
 
 
-    public Entity(int x, int y, int width, int height, String imgSrc) {
+    public Entity(int x, int y, int width, int height) {
         
         //setting position
         position = new Position(x, y);
@@ -32,9 +36,6 @@ public abstract class Entity {
         //setting hitbox
         hitBox = new Rectangle(x, y, width, height);
 
-        //setting icon
-        icon = new ImageIcon(imgSrc).getImage().
-        getScaledInstance(width, height, Image.SCALE_AREA_AVERAGING);
     }
 
     //COLLISIONI
@@ -63,6 +64,30 @@ public abstract class Entity {
     }
 //********************************************************* */
 
+    
+
+    public void setSprites(String[] movingLeft, String[] movingRight) {
+
+        this.movingLeft = new Image[2];
+        this.movingRight = new Image[2];
+
+        this.movingRight[0] = new ImageIcon(movingRight[0]).getImage().
+            getScaledInstance(getWidth(), getHeight(), Image.SCALE_AREA_AVERAGING);
+        this.movingRight[1] = new ImageIcon(movingRight[1]).getImage().
+            getScaledInstance(getWidth(), getHeight(), Image.SCALE_AREA_AVERAGING);
+
+        this.movingLeft[0] = new ImageIcon(movingLeft[0]).getImage().
+            getScaledInstance(getWidth(), getHeight(), Image.SCALE_AREA_AVERAGING);
+        this.movingLeft[1] = new ImageIcon(movingLeft[1]).getImage().
+            getScaledInstance(getWidth(), getHeight(), Image.SCALE_AREA_AVERAGING);
+    }
+
+    //set&get Frame
+    public Image getFrame() {return this.frame;}
+    public void setFrame(Image frame) {this.frame = frame;}
+
+
+
     //entities ArrayList
     public static void addEntity(Entity e) {entities.add(e);}
     public static ArrayList<Entity> getEntities() {return entities;}
@@ -75,10 +100,8 @@ public abstract class Entity {
 
 
     //get&set image
-    public Image getIcon() { return icon; }
-    public void setIcon(Image icon) {
-        this.icon = icon;
-    }
+    public Image[] movingLeftImages() {return movingLeft;}
+    public Image[] movingRightImages() {return movingRight;}
 
 
     //set&get positionX
