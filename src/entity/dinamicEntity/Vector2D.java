@@ -1,4 +1,4 @@
-package utility;
+package entity.dinamicEntity;
 //Classe che crea un Vector2D, utilizzata per memorizzare le direzioni x e y delle entità
 //passategli dal costruttore o settate coi setter. Classe utilizzata da Movement
 public class Vector2D {

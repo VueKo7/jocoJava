@@ -6,5 +6,3 @@ public class Main {
         new Thread(new GameLoop(new Game())).start();
     }
 }
-
-//una cosa che sarebbe da fare è parallelizzare il processo di controllo delle collisioni

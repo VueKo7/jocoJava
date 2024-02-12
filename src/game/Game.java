@@ -7,8 +7,8 @@ import input.Input;
 
 public class Game {
 
-
-    Player hero;
+    Player player;
+    Thread playerThread;
 
     Obstacle wall, wall1;
     
@@ -23,7 +23,9 @@ public class Game {
         display = new Display(input);
 
         camera = new Camera(display.getWidth()/4, display.getHeight()/4, display.getWidth()/2, display.getHeight()/2);
-        hero = new Player(display.getWidth()/2, display.getHeight()/2, 100, 150, input, camera);
+        player = new Player(display.getWidth()/2, display.getHeight()/2, 100, 150, input, camera);
+        playerThread = new Thread(player);
+        playerThread.start();
 
         wall = new Obstacle(300, 500, 200, 50);
         wall1 = new Obstacle(300, 200, 200, 50);
@@ -45,7 +47,6 @@ public class Game {
     //4. dalla classe movement ottiene lo stato del keyBuffer
     //5. allora viene aggiornata la Posizione di Player tramite Vector2D
     public void update() {
-        
-        hero.move();
+            
     }
 }

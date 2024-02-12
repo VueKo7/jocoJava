@@ -3,11 +3,8 @@ public class GameLoop implements Runnable {
 
     private Game game;
 
-    private boolean running;
-    private final double updateRate = 1.0d/60.0d;
-
-    private long nextStatTime;
-    private int fps, ups;
+    long nextStatTime;
+    int fps, ups;
 
     public GameLoop(Game game) {
         this.game = game;
@@ -15,6 +12,10 @@ public class GameLoop implements Runnable {
 
     @Override
     public void run() {
+
+        boolean running;
+        final double updateRate = 1.0d/60.0d;
+
         running = true;
         double accumulator = 0;
         long currentTime, lastUpdate = System.currentTimeMillis();

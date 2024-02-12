@@ -12,6 +12,7 @@ public class StaticEntity extends Entity{
         super(x, y, width, height);
         panel = new MyPanel(x, y, width, height);
         setVisible(false);
+        setDinamic(false);
     }
     
 

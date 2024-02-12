@@ -5,13 +5,12 @@ import java.awt.event.KeyEvent;
 import entity.Entity;
 import entity.Position;
 import entity.Size;
-import entity.dinamicEntity.Movement;
 import entity.dinamicEntity.MovingEntity;
+import entity.dinamicEntity.Vector2D;
 import input.Input;
-import utility.Vector2D;
 //Classe utilizzata per gestire il player.Utilizza Input, Movement e Vector 2D.
 //Figlia di Entyty, quindi controllare la mommy. Viene richiamata dal Game
-public class Player extends MovingEntity implements Movement {
+public class Player extends MovingEntity {
 
     //attributi + quelli ereditati da Entity
     Camera camera;
@@ -70,9 +69,12 @@ public class Player extends MovingEntity implements Movement {
 //******************************************************************************************** */
 
 
-    //Methodo per far muovere il player, passato Input, crea un nuovo Vector2D e aggiorna le direzioni di movement
-    public void move() {
+
+
+    @Override
+    public void move() { //Methodo per far muovere il player
         
+        //determina la direzione del personaggio controllando tutte le collisioni
         update_position();
 
         //Metodi settaggi della posizione del player(Appartiene ad entità)
@@ -82,50 +84,64 @@ public class Player extends MovingEntity implements Movement {
         setXHitbox((int)getVector().getX());
         setYHitbox((int)getVector().getY());
 
-        updateSprite();
+        //aggiorna lo sprite
+        update_sprite();
     }
 
 
-    public Size getCameraSize() {return camera.size;}
+    @Override
+    public int calcYdirection() {
 
-    public Position getCameraPos() {return camera.position;}
+        int dY = 0;
+        if(input.getKeyState(KeyEvent.VK_W)) //VK_W is pressed | going up
+            dY = -1;   
+        else if(input.getKeyState(KeyEvent.VK_S)) //VK_S is pressed | going down
+            dY = 1;
 
+        return dY;
+    }   
+
+    @Override
+    public int calcXdirection() {
+        
+        int dX = 0;
+        if(input.getKeyState(KeyEvent.VK_A)) //VK_A is pressed | going left
+            dX = -1;   
+        else if(input.getKeyState(KeyEvent.VK_D)) //VK_D is pressed | goign right
+            dX = 1;
+
+        return dX;
+    }
 
     @Override
     public void update_position() {
 
         //(0=fermo in x, -1=spostamento verso sinistra, 1=spostamento verso destra)
-        setDirectionX(0);
+        int dX = calcXdirection();
+        setDirectionX(dX);
+        setFacing(dX);
 
         //(0=fermo in y, -1=spostamento verso l'alto, 1=spostamento verso il basso)
-        setDirectionY(0);
+        int dY = calcYdirection();
+        setDirectionY(dY);
 
-        
-        if(input.getKeyState(KeyEvent.VK_W)) //VK_W is pressed | going up
-            setDirectionY(-1);   
-        else if(input.getKeyState(KeyEvent.VK_S)) //VK_S is pressed | going down
-            setDirectionY(1);
+        //controllo collisione telecamera
+        boolean xCameraCollision = collisionX(dX*getSpeed());
+        boolean yCameraCollision = collisionY(dY*getSpeed());
 
-        if(input.getKeyState(KeyEvent.VK_A)) //VK_A is pressed | going left
-            setDirectionX(-1); 
-        else if(input.getKeyState(KeyEvent.VK_D)) //VK_D is pressed | goign right
-            setDirectionX(1);
-
-        
-        boolean xCameraCollision = collisionX(getDirectionX()*getSpeed());
-        boolean yCameraCollision = collisionY(getDirectionY()*getSpeed());
-
+        //se collidi in X con la camera smetti di muoverti in X
         if(xCameraCollision)
             setDirectionX(0);
         
+        //se collidi in X con la camera smetti di muoverti in X
         if(yCameraCollision)
             setDirectionY(0);
 
         
         for(Entity obstacle : Entity.getEntities())
         {
-            boolean xCollision = collisionX(obstacle, getDirectionX()*getSpeed());
-            boolean yCollision = collisionY(obstacle, getDirectionY()*getSpeed());
+            boolean xCollision = collisionX(obstacle, dX*getSpeed());
+            boolean yCollision = collisionY(obstacle, dY*getSpeed());
 
             //check if you actually collide with the obstacle
             if(yCollision && xCollision)
@@ -155,8 +171,8 @@ public class Player extends MovingEntity implements Movement {
                  */
 
                 //dopo aver cambiato direzione, domanda se alle sue spalle ha un ostacolo
-                boolean reverseXCollision = collisionX(obstacle, -getDirectionX()*getSpeed());
-                boolean reverseYCollision = collisionY(obstacle, -getDirectionY()*getSpeed());
+                boolean reverseXCollision = collisionX(obstacle, -dX*getSpeed());
+                boolean reverseYCollision = collisionY(obstacle, -dY*getSpeed());
                 
                 //impone che tu NON abbia un'ostacolo a destra/sinistra per fermarti in X
                 if(!reverseXCollision)
@@ -176,10 +192,23 @@ public class Player extends MovingEntity implements Movement {
         getVector().normalize();
         //richiamo la multiply passandogli la velocità desiderata
         getVector().multiply(getSpeed());
-    
-        //System.out.println(vector.toString()); //stampo le direzioni 
     }
 
+    public Size getCameraSize() {return camera.size;}
+    public Position getCameraPos() {return camera.position;}
 
+
+    @Override
+    public void run() {
+
+        while(getHp() > 0) {
+            try {
+                move();
+                Thread.sleep(10);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }   
+    }
    
 }

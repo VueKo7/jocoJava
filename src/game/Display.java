@@ -49,17 +49,18 @@ public class Display extends JFrame {
 
 
         //visualizzazione personaggio
-        graphics.drawImage(game.hero.getFrame(), game.hero.getX(), game.hero.getY(), null);
+        graphics.drawImage(game.player.getFrame(), game.player.getX(), game.player.getY(), null);
         
         graphics.setColor(Color.BLUE);
-        graphics.drawRect(game.hero.getX(), game.hero.getY(), game.hero.getWidth(), game.hero.getHeight());
+        graphics.drawRect(game.player.getX(), game.player.getY(), game.player.getWidth(), game.player.getHeight());
         
         graphics.setColor(Color.RED);
-        graphics.drawRect(game.hero.getXHitbox(), game.hero.getYHitbox(), game.hero.getHitBoxWidth(), game.hero.getHitBoxHeight());
+        graphics.drawRect(game.player.getXHitbox(), game.player.getYHitbox(), game.player.getHitBoxWidth(), game.player.getHitBoxHeight());
 
 
         //visualizzazione entità a schermo
         Entity.getEntities().forEach((Entity e) -> {
+            
             if(canvas.contains(e.getHitBox().getLocation())) {
                 graphics.drawImage(e.getFrame(), e.getX(), e.getY(), null);
             }

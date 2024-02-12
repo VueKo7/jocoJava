@@ -11,6 +11,8 @@ public abstract class Entity {
     private Position position;
     private Size size;
     private Rectangle hitBox;
+    private boolean dinamic;
+    private int hp;
 
     //Frame dello sprite che verrà disegnato
     public Image frame;
@@ -28,9 +30,13 @@ public abstract class Entity {
         size = new Size(width, height);
 
         //setting defoutl hitbox
-        //its OverWritten by MovingEntities
+        //its OverWritten by MovingEntities & StaticEntity
         hitBox = new Rectangle(x, y, width, height);
 
+        //setting hp to default
+        hp = 100;
+
+        dinamic = false;
     }
 
 
@@ -38,7 +44,6 @@ public abstract class Entity {
     //set&get Frame
     public Image getFrame() {return this.frame;}
     public void setFrame(Image frame) {this.frame = frame;}
-
 
 
     //entities ArrayList
@@ -75,6 +80,15 @@ public abstract class Entity {
     public int getHitBoxWidth() {return (int)hitBox.getWidth();}
     public int getHitBoxHeight() {return (int)hitBox.getHeight();}
 
+
+    //hp
+    public int getHp() {return hp;}
+    public void setHp(int hp) {this.hp = hp;}
+
+
+    //dinamic
+    public boolean isDinamic() {return dinamic;}
+    public void setDinamic(boolean dinamic) {this.dinamic = dinamic;}
 
     @Override
     public String toString() {return "{" + getX() + "," + getY() + "}";}
