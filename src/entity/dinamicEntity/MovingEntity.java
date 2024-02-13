@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 import entity.Entity;
 
-public abstract class MovingEntity extends Entity implements Runnable {
+public abstract class MovingEntity extends Entity implements Runnable, Movement {
 
     //animations
     private Image[] movingRight;
@@ -33,6 +33,12 @@ public abstract class MovingEntity extends Entity implements Runnable {
     }
 
 
+
+
+
+
+
+
         //COLLISIONI
 //************************************************************* */
     public boolean collisionX(Entity entity, int dX) {
@@ -43,7 +49,7 @@ public abstract class MovingEntity extends Entity implements Runnable {
         int entityX = entity.getHitBox().x;
         int entityWidth = entity.getHitBox().width;
 
-        return (playerX+playerWidth+dX >= entityX-dX && playerX+dX <= entityX+entityWidth-dX); 
+        return (playerX+playerWidth+dX >= entityX && playerX+dX <= entityX+entityWidth); 
     }
 
     public boolean collisionY(Entity entity, int dY) {
@@ -54,9 +60,15 @@ public abstract class MovingEntity extends Entity implements Runnable {
         int entityY = entity.getHitBox().y;
         int entityHeight = entity.getHitBox().height;
 
-        return (playerY+playerHeight+dY >= entityY-dY && playerY+dY <= entityY+entityHeight-dY); 
+        return (playerY+playerHeight+dY >= entityY && playerY+dY <= entityY+entityHeight); 
     }
 //********************************************************* */
+
+
+
+
+
+
 
 
         //SETTING SPRITES
@@ -101,7 +113,8 @@ public abstract class MovingEntity extends Entity implements Runnable {
         //determina ogni quanti clock cambia lo sprite cambia frame 
         if(spriteTiming > 10)
         {
-            if(facing == 1) { //va a destra
+            if(facing == 1) //va a destra
+            {
                 if(spriteSide == 1) {
                     setFrame(movingRight[0]);
                     spriteSide = 2;
@@ -111,7 +124,8 @@ public abstract class MovingEntity extends Entity implements Runnable {
                     spriteSide = 1;
                 }    
             }
-            else if(facing == -1) { //va a sinistra
+            else if(facing == -1) //va a sinistra 
+            {
                 if(spriteSide == 1) {
                     setFrame(movingLeft[0]);
                     spriteSide = 2;
@@ -121,7 +135,8 @@ public abstract class MovingEntity extends Entity implements Runnable {
                     spriteSide = 1;
                 }    
             }
-            else if(facing == 0) { //è fermo
+            else if(facing == 0) //è fermo
+            { 
                 if(spriteSide == 1) {
                     setFrame(standingStill[0]);
                     spriteSide = 2;
@@ -136,6 +151,16 @@ public abstract class MovingEntity extends Entity implements Runnable {
         spriteTiming++;
     }
 //********************************************************* */
+
+
+
+
+
+
+
+
+
+
 
 
     public Image[] getMovingRight() {return movingRight;}

@@ -47,6 +47,10 @@ public class Game {
     //4. dalla classe movement ottiene lo stato del keyBuffer
     //5. allora viene aggiornata la Posizione di Player tramite Vector2D
     public void update() {
-            
+        
+        if(player.getHp() <= 0) {
+            throw new RuntimeException("GAME OVER!");
+        }
+
     }
 }

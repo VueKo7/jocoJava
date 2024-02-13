@@ -125,9 +125,12 @@ public class Player extends MovingEntity {
         int dY = calcYdirection();
         setDirectionY(dY);
 
+        //getting the speed(needed for collision check)
+        int speed = getSpeed();
+
         //controllo collisione telecamera
-        boolean xCameraCollision = collisionX(dX*getSpeed());
-        boolean yCameraCollision = collisionY(dY*getSpeed());
+        boolean xCameraCollision = collisionX(dX*speed);
+        boolean yCameraCollision = collisionY(dY*speed);
 
         //se collidi in X con la camera smetti di muoverti in X
         if(xCameraCollision)
@@ -140,8 +143,8 @@ public class Player extends MovingEntity {
         
         for(Entity obstacle : Entity.getEntities())
         {
-            boolean xCollision = collisionX(obstacle, dX*getSpeed());
-            boolean yCollision = collisionY(obstacle, dY*getSpeed());
+            boolean xCollision = collisionX(obstacle, dX*speed);
+            boolean yCollision = collisionY(obstacle, dY*speed);
 
             //check if you actually collide with the obstacle
             if(yCollision && xCollision)
@@ -171,8 +174,8 @@ public class Player extends MovingEntity {
                  */
 
                 //dopo aver cambiato direzione, domanda se alle sue spalle ha un ostacolo
-                boolean reverseXCollision = collisionX(obstacle, -dX*getSpeed());
-                boolean reverseYCollision = collisionY(obstacle, -dY*getSpeed());
+                boolean reverseXCollision = collisionX(obstacle, -dX*speed);
+                boolean reverseYCollision = collisionY(obstacle, -dY*speed);
                 
                 //impone che tu NON abbia un'ostacolo a destra/sinistra per fermarti in X
                 if(!reverseXCollision)
@@ -200,11 +203,10 @@ public class Player extends MovingEntity {
 
     @Override
     public void run() {
-
         while(getHp() > 0) {
             try {
                 move();
-                Thread.sleep(10);
+                Thread.sleep(15);
             } catch (Exception e) {
                 e.printStackTrace();
             }
