@@ -22,6 +22,19 @@ public class Camera {
     }
 
 
+    public boolean engage() {
+
+
+        return true;
+
+    }
+
+
+
+
+
+
+
     
     public void setY(int y) {this.cameraArea.y += y;}  
     public int getY() {return cameraArea.y;}
@@ -31,6 +44,4 @@ public class Camera {
 
     public int getWidth() {return cameraArea.width;}
     public int getHeight() {return cameraArea.height;}
-
-
 }

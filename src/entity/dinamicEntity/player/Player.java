@@ -3,8 +3,6 @@ package entity.dinamicEntity.player;
 import java.awt.event.KeyEvent;
 
 import entity.Entity;
-import entity.Position;
-import entity.Size;
 import entity.dinamicEntity.Camera;
 import entity.dinamicEntity.MovingEntity;
 import entity.dinamicEntity.Vector2D;
@@ -79,7 +77,6 @@ public class Player extends MovingEntity {
         
         //determina la direzione del personaggio controllando tutte le collisioni
         update_position();
-
         update_camera();
 
         //Metodi settaggi della posizione del player(Appartiene ad entità)

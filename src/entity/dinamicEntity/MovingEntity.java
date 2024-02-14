@@ -158,8 +158,8 @@ public abstract class MovingEntity extends Entity implements Runnable, Movement 
 
     public void update_camera() {
         
-        camera.setX(directionX*speed);
-        camera.setY(directionY*speed);
+        camera.setX((int)vector.getX());
+        camera.setY((int)vector.getY());
 
     }
 
