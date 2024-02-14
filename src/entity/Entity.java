@@ -20,6 +20,8 @@ public abstract class Entity {
     //gestisco tutte le entita'
     static ArrayList<Entity> entities = new ArrayList<>();
 
+    boolean visible;
+
 
     public Entity(int x, int y, int width, int height) {
         
@@ -36,6 +38,7 @@ public abstract class Entity {
         //setting hp to default
         hp = 100;
 
+        visible = false;
         dinamic = false;
     }
 
@@ -89,6 +92,11 @@ public abstract class Entity {
     //dinamic
     public boolean isDinamic() {return dinamic;}
     public void setDinamic(boolean dinamic) {this.dinamic = dinamic;}
+
+
+    //visible or not
+    public void setVisible(boolean visible) {this.visible = visible;}
+    public boolean isVisible() {return visible;}
 
     @Override
     public String toString() {return "{" + getX() + "," + getY() + "}";}

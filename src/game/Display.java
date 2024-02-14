@@ -8,8 +8,8 @@ import java.awt.image.BufferStrategy;
 
 public class Display extends JFrame {
 
-    final int BOARD_WIDTH = 1280;
-    final int BOARD_HEIGHT = 720;
+    public final static int BOARD_WIDTH = 1280;
+    public final static int BOARD_HEIGHT = 720;
 
     private Canvas canvas;
 
@@ -62,8 +62,11 @@ public class Display extends JFrame {
         Entity.getEntities().forEach((Entity e) -> {
             
             if(canvas.contains(e.getHitBox().getLocation())) {
+                e.setVisible(true);
                 graphics.drawImage(e.getFrame(), e.getX(), e.getY(), null);
             }
+            else 
+                e.setVisible(false);
         });
 
 

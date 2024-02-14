@@ -3,7 +3,6 @@ package entity.dinamicEntity.player;
 import java.awt.event.KeyEvent;
 
 import entity.Entity;
-import entity.dinamicEntity.Camera;
 import entity.dinamicEntity.MovingEntity;
 import entity.dinamicEntity.Vector2D;
 import input.Input;
@@ -47,37 +46,21 @@ public class Player extends MovingEntity {
         super.setStillSprites(standingStill);
         super.setLeftSprites(movingLeft);
         super.setRightSprites(movingRight);
-
-        setCamera(new Camera(getX()/2, getY()/2, getX(), getY()));
     }
     
 
-    //CAMERA COLLISION
-//******************************************************************************************** */
-    public boolean collisionX(int dX) {
 
-        return (getX()+dX <= getCamera().getX() //from left to right
-        || getX()+getWidth()+dX >= getCamera().getX()+getCamera().getWidth()); //form right to left
-        
-    }
-
-    public boolean collisionY(int dY) {
-
-        return (getY()+dY <= getCamera().getY() //from down to up
-        || getY()+getHeight()+dY >= getCamera().getY()+getCamera().getHeight()); //from up to down
-            
-    }
-//******************************************************************************************** */
-
-
-
-
+    //MOVEMENT CONTROLS
+//********************************************************* */
     @Override
     public void move() { //Methodo per far muovere il player
         
         //determina la direzione del personaggio controllando tutte le collisioni
         update_position();
-        update_camera();
+
+        //camera following
+        getCamera().setX((int)getVector().getX());   
+        getCamera().setY((int)getVector().getY());
 
         //Metodi settaggi della posizione del player(Appartiene ad entità)
         setX((int)getVector().getX());
@@ -91,6 +74,9 @@ public class Player extends MovingEntity {
     }
 
 
+
+    //SETTING THE DIRECTION TO THE REQUESTED ONE
+//********************************************************* */
     @Override
     public int calcYdirection() {
 
@@ -115,6 +101,10 @@ public class Player extends MovingEntity {
         return dX;
     }
 
+
+
+    //CHECKING IF THE REQUESTED POSITION IS AVAILABLE
+//********************************************************* */
     @Override
     public void update_position() {
 
@@ -130,54 +120,46 @@ public class Player extends MovingEntity {
         //getting the speed(needed for collision check)
         int speed = getSpeed();
 
-        //controllo collisione telecamera
-        boolean xCameraCollision = collisionX(dX*speed);
-        boolean yCameraCollision = collisionY(dY*speed);
-
-        //se collidi in X con la camera smetti di muoverti in X
-        if(xCameraCollision)
-            setDirectionX(0);
         
-        //se collidi in X con la camera smetti di muoverti in X
-        if(yCameraCollision)
-            setDirectionY(0);
-
         
+
+
         for(Entity obstacle : Entity.getEntities())
         {
-            boolean xCollision = collisionX(obstacle, dX*speed);
-            boolean yCollision = collisionY(obstacle, dY*speed);
+
+            boolean xCollision = collisionX(obstacle, getDirectionX()*speed);
+            boolean yCollision = collisionY(obstacle, getDirectionY()*speed);
 
             //check if you actually collide with the obstacle
             if(yCollision && xCollision)
             {      
-                /*CONTROLLO CHE SERVE VENGA CONSULTATO SOLO DOPO CHE IL PLAYER CAMBIA DIREZIONE
-                 * 
-                 * DOMINIO DI COLLISIONE: tutto lo spazio verticale determinato dalla LARGHEZZA dell'ostacolo
-                 * CODOMINIO DI COLLISIONE: tutto lo spazio orizzontale determinato dall'ALTEZZA dell'ostacolo
-                 * 
-                 * esempio:
-                 * mi sto muovendo dal basso verso l'alto trovandomi sotto ad un ostacolo QUINDI:
-                 * in X sono in costante collisione(dominio di collisione)
-                 * in Y sarò in collisione non appena mi scontro in Y con l'ostacolo(codominio di collisione)
-                 * 
-                 * appena mi scontro in Y controllo che nella direzione opposta (-directionY) ci sia un ostacolo
-                 * mentre mi sto spostando verso questo ostacolo dietro di me sarà libero:
-                 * il controllo collisione mi darà quindi FALSE perchè non sto collidendo nella direzioneo opposta
-                 * quindi negato nell'IF avrò TRUE e quindi la directionY sarà posta a 0
-                 * 
-                 * caso 1: cambio direzione e vado verso il basso
-                 * la directionY viene aggiornata sopra e il primo controllo di collisione darà FALSE
-                 * allora questo if NON viene eseguito e il giocatore riesce ad andare verso il basso
-                 * 
-                 * caso 2: cambio direzione e vado verso destra/sinistra
-                 * in X mi trovo nel dominio di collisione
-                 * il controllo di collisione darà TRUE che negato è FALSE quindi la mia getDirectionX() rimane invariata
-                 */
+        /*CONTROLLO CHE SERVE VENGA CONSULTATO SOLO DOPO CHE IL PLAYER CAMBIA DIREZIONE
+        * 
+        * DOMINIO DI COLLISIONE: tutto lo spazio verticale determinato dalla LARGHEZZA dell'ostacolo
+        * CODOMINIO DI COLLISIONE: tutto lo spazio orizzontale determinato dall'ALTEZZA dell'ostacolo
+        * 
+        * esempio:
+        * mi sto muovendo dal basso verso l'alto trovandomi sotto ad un ostacolo QUINDI:
+        * in X sono in costante collisione(dominio di collisione)
+        * in Y sarò in collisione non appena mi scontro in Y con l'ostacolo(codominio di collisione)
+        * 
+        * appena mi scontro in Y controllo che nella direzione opposta (-directionY) ci sia un ostacolo
+        * mentre mi sto spostando verso questo ostacolo dietro di me sarà libero:
+        * il controllo collisione mi darà quindi FALSE perchè non sto collidendo nella direzioneo opposta
+        * quindi negato nell'IF avrò TRUE e quindi la directionY sarà posta a 0
+        * 
+        * caso 1: cambio direzione e vado verso il basso
+        * la directionY viene aggiornata sopra e il primo controllo di collisione darà FALSE
+        * allora questo if NON viene eseguito e il giocatore riesce ad andare verso il basso
+        * 
+        * caso 2: cambio direzione e vado verso destra/sinistra
+        * in X mi trovo nel dominio di collisione
+        * il controllo di collisione darà TRUE che negato è FALSE quindi la mia getDirectionX() rimane invariata
+        */
 
                 //dopo aver cambiato direzione, domanda se alle sue spalle ha un ostacolo
-                boolean reverseXCollision = collisionX(obstacle, -dX*speed);
-                boolean reverseYCollision = collisionY(obstacle, -dY*speed);
+                boolean reverseXCollision = collisionX(obstacle, -getDirectionX()*speed);
+                boolean reverseYCollision = collisionY(obstacle, -getDirectionY()*speed);
                 
                 //impone che tu NON abbia un'ostacolo a destra/sinistra per fermarti in X
                 if(!reverseXCollision)
@@ -190,6 +172,25 @@ public class Player extends MovingEntity {
                 break;
             }
 
+        }
+
+
+        if(getCamera().frame_collisionX(getDirectionX()*speed) || getCamera().frame_collisionY(getDirectionY()*speed))
+        {
+            for(Entity entity : Entity.getEntities()) {
+            
+                entity.setX(-getDirectionX()*speed);
+                entity.setXHitbox(-getDirectionX()*speed);
+
+                entity.setYHitbox(-getDirectionY()*speed);
+                entity.setY(-getDirectionY()*speed);
+            }
+
+            if(getCamera().frame_collisionX(getDirectionX()*speed))
+                setDirectionX(0);
+
+            if(getCamera().frame_collisionY(getDirectionY()*speed))
+                setDirectionY(0);
         }
     
         //inizializzo il Vectore2D passandogli le direzioni x e y

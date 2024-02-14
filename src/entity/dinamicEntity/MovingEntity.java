@@ -33,10 +33,9 @@ public abstract class MovingEntity extends Entity implements Runnable, Movement 
         super(x, y, width, height);
         vector = new Vector2D(0, 0);
         setDinamic(true);
+
+        setCamera(new Camera(getX()/2+getWidth()/2, getY()/2+getHeight()/2, getX(), getY(), this));
     }
-
-
-
 
 
 
@@ -156,14 +155,7 @@ public abstract class MovingEntity extends Entity implements Runnable, Movement 
 //********************************************************* */
 
 
-    public void update_camera() {
-        
-        camera.setX((int)vector.getX());
-        camera.setY((int)vector.getY());
-
-    }
-
-
+    
 
 
 

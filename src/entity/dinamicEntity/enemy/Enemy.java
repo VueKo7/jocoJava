@@ -26,7 +26,7 @@ public class Enemy extends MovingEntity {
         setLeftSprites(movingLeft);
         setRightSprites(movingRight);
 
-        setCamera(new Camera(x, y, width, height));
+        setCamera(new Camera(x, y, width, height, this));
 
     }
 
