@@ -25,6 +25,9 @@ public abstract class MovingEntity extends Entity implements Runnable, Movement 
     private int spriteTiming = 0;
     private int spriteSide = 1; //defoult
 
+    //to Interact whit other entities
+    Camera camera;
+
 
     public MovingEntity(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -153,15 +156,20 @@ public abstract class MovingEntity extends Entity implements Runnable, Movement 
 //********************************************************* */
 
 
+    public void update_camera() {
+        
+        camera.setX(directionX*speed);
+        camera.setY(directionY*speed);
+
+    }
 
 
 
 
 
 
-
-
-
+    public void setCamera(Camera camera) {this.camera = camera;}
+    public Camera getCamera() {return camera;}
 
     public Image[] getMovingRight() {return movingRight;}
     public void setMovingRight(Image[] movingRight) {this.movingRight = movingRight;}

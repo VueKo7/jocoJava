@@ -6,36 +6,31 @@
  * 
  * camera_collision controlla che l'osservatore rimanga dentro la camera
  */
-package entity.dinamicEntity.player;
+package entity.dinamicEntity;
 
 import java.awt.Rectangle;
 
-import entity.Position;
-import entity.Size;
-
 public class Camera {
     
-    Position position;
-    Size size;
+
     Rectangle cameraArea;
-    Player observer;
 
 
     public Camera(int x, int y, int width, int height) {
-        position = new Position(x, y);
-        size = new Size(width, height);
         cameraArea = new Rectangle(x, y, width, height);
         //this.observer = observer;
     }
 
 
     
+    public void setY(int y) {this.cameraArea.y += y;}  
+    public int getY() {return cameraArea.y;}
 
-    public int getX() {return position.getX();}
-    public int getY() {return position.getY();}
+    public void setX(int x) {this.cameraArea.x += x;}
+    public int getX() {return cameraArea.x;}
 
-    public int getWidth() {return size.getWidth();}
-    public int getHeight() {return size.getHeight();}
+    public int getWidth() {return cameraArea.width;}
+    public int getHeight() {return cameraArea.height;}
 
 
 }

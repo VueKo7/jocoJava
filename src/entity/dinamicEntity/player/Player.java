@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import entity.Entity;
 import entity.Position;
 import entity.Size;
+import entity.dinamicEntity.Camera;
 import entity.dinamicEntity.MovingEntity;
 import entity.dinamicEntity.Vector2D;
 import input.Input;
@@ -13,7 +14,7 @@ import input.Input;
 public class Player extends MovingEntity {
 
     //attributi + quelli ereditati da Entity
-    Camera camera;
+    //Camera camera;
     Input input;
     
     //Position position;
@@ -29,10 +30,10 @@ public class Player extends MovingEntity {
     //imgSrc=percorso dell'immagine
     //hitBox=rettangolo che delinea lo spazio dell'entita'
 
-    public Player(int x, int y, int width, int height, Input input, Camera camera) {
+    public Player(int x, int y, int width, int height, Input input) {
         
         super(x, y, width, height);
-        this.camera = camera;
+        
         this.input = input;
         getHitBox().translate(width/4, height/4);
         getHitBox().setSize(width/2, height/2);
@@ -48,6 +49,8 @@ public class Player extends MovingEntity {
         super.setStillSprites(standingStill);
         super.setLeftSprites(movingLeft);
         super.setRightSprites(movingRight);
+
+        setCamera(new Camera(getX()/2, getY()/2, getX(), getY()));
     }
     
 
@@ -55,15 +58,15 @@ public class Player extends MovingEntity {
 //******************************************************************************************** */
     public boolean collisionX(int dX) {
 
-        return (getX()+dX <= camera.getX() //from left to right
-        || getX()+getWidth()+dX >= camera.getX()+camera.getWidth()); //form right to left
+        return (getX()+dX <= getCamera().getX() //from left to right
+        || getX()+getWidth()+dX >= getCamera().getX()+getCamera().getWidth()); //form right to left
         
     }
 
     public boolean collisionY(int dY) {
 
-        return (getY()+dY <= camera.getY() //from down to up
-        || getY()+getHeight()+dY >= camera.getY()+camera.getHeight()); //from up to down
+        return (getY()+dY <= getCamera().getY() //from down to up
+        || getY()+getHeight()+dY >= getCamera().getY()+getCamera().getHeight()); //from up to down
             
     }
 //******************************************************************************************** */
@@ -76,6 +79,8 @@ public class Player extends MovingEntity {
         
         //determina la direzione del personaggio controllando tutte le collisioni
         update_position();
+
+        update_camera();
 
         //Metodi settaggi della posizione del player(Appartiene ad entità)
         setX((int)getVector().getX());
@@ -197,8 +202,7 @@ public class Player extends MovingEntity {
         getVector().multiply(getSpeed());
     }
 
-    public Size getCameraSize() {return camera.size;}
-    public Position getCameraPos() {return camera.position;}
+   
 
 
     @Override
@@ -213,4 +217,5 @@ public class Player extends MovingEntity {
         }   
     }
    
+
 }

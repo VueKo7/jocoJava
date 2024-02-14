@@ -45,7 +45,7 @@ public class Display extends JFrame {
 
         //visualizzazione Camera
         graphics.setColor(Color.RED);
-        graphics.drawRect(BOARD_WIDTH/4, BOARD_HEIGHT/4, BOARD_WIDTH/2, BOARD_HEIGHT/2);
+        graphics.drawRect(game.player.getCamera().getX(), game.player.getCamera().getY(), game.player.getCamera().getWidth(), game.player.getCamera().getHeight());
 
 
         //visualizzazione personaggio
