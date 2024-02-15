@@ -25,7 +25,7 @@ public class Game {
         player = new Player(display.getWidth()/2, display.getHeight()/2, 100, 150, input);
         playerThread = new Thread(player);
         playerThread.start();
-        
+
 
         wall = new Obstacle(300, 500, 200, 50);
         wall1 = new Obstacle(300, 200, 200, 50);

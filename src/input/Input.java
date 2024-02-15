@@ -14,44 +14,46 @@ public class Input implements KeyListener, MouseListener {
     //se in posizione i contiene true, allora in quella posizione il tasto è premuto
     //se in posizione i contiene false, allora in quella posizione il tasto è stato rilasciato
     //se in posizione i contiene null, allora in quella posizione il tasto non è stato mai premuto
-    public boolean[] keyBuffer;
+    private boolean[] moveSetBuffer;
+    private boolean[] GUIBuffer;
+    private boolean[] clickBuffer;
 
     //costruttore che inzializza il keyBuffer 
     public Input() { 
-        keyBuffer = new boolean[255]; 
+        moveSetBuffer = new boolean[255]; 
+        GUIBuffer = new boolean[255]; 
+        clickBuffer = new boolean[255]; 
     }
 
 
     //Metodo principale per ricavare lo stato di un tasto
-    public boolean getKeyState(int i) { return keyBuffer[i]; }
+    public boolean getMoveSetBuffer_KeyState(int i) { return moveSetBuffer[i]; }
+    public boolean getGUIBuffer_KeyState(int i) { return GUIBuffer[i]; }
+    public boolean getClickBuffer_ClickState(int i) { return clickBuffer[i]; }
     
     //Metodi chiamato quando è presente un evento della tastiera
 
     //Metodo che quando un tasto è premuto, ricava la sua posizone e la setta true nel keyBuffer
     @Override
-    public void keyPressed(KeyEvent e) { keyBuffer[e.getKeyCode()] = true; }
+    public void keyPressed(KeyEvent e) { moveSetBuffer[e.getKeyCode()] = true; }
     //Metodo che quando un tasto è rilasciato, ricava la sua posizone e la setta false nel keyBuffer
     @Override
-    public void keyReleased(KeyEvent e) { keyBuffer[e.getKeyCode()] = false; }
-
-
-//not needed
+    public void keyReleased(KeyEvent e) { moveSetBuffer[e.getKeyCode()] = false; }
+    //Metodo che quando un tasto è premuto
+    @Override
+    public void keyTyped(KeyEvent e) { GUIBuffer[e.getKeyCode()] = false; }
 
     //Metodo che quando un tasto è cliccato(premuto e rilasciato in contemporanea)...
     @Override
-    public void keyTyped(KeyEvent e) {}
-
-    //Metodi chiamato quando è presente un evento del mouse
-
-    //Metodo che quando un tasto è cliccato(premuto e rilasciato in contemporanea)...
-    @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) { clickBuffer[e.getButton()] = true; }
     //Metodo che quando un tasto è premuto,
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) { clickBuffer[e.getButton()] = true; }
     //Metodo che quando un tasto è rilasciato,
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) { clickBuffer[e.getButton()] = true; }
+    
+//not needed    
     //Metodo che quando il cursore entra in una zona...
     @Override
     public void mouseEntered(MouseEvent e) {}

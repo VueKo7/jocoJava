@@ -29,6 +29,7 @@ public class GameLoop implements Runnable {
 
             if(accumulator >= updateRate) {
                 while(accumulator >= updateRate) {
+                    
                     try {update();}
 
                     catch(Exception e) {System.out.println(e.getMessage());}

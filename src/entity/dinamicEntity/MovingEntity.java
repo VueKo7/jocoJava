@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 import entity.Entity;
 
-public abstract class MovingEntity extends Entity implements Runnable, Movement {
+public abstract class MovingEntity extends Entity implements Runnable, Movement, Attack {
 
     //animations
     private Image[] movingRight;
@@ -195,6 +195,8 @@ public abstract class MovingEntity extends Entity implements Runnable, Movement 
 
 
     //metodi che verranno sovrascritti da player/mostro/npc
+    public abstract void lightAttack();
+    public abstract void heavyAttack();
     public abstract void run();
     public abstract void move();
     public abstract void update_position();

@@ -22,7 +22,10 @@ public class Display extends JFrame {
         canvas.setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
         canvas.setFocusable(false);
         add(canvas);
+
+        addMouseListener(input);
         addKeyListener(input);
+        
         pack();
 
         canvas.createBufferStrategy(3);
@@ -61,20 +64,22 @@ public class Display extends JFrame {
         //visualizzazione entità a schermo
         Entity.getEntities().forEach((Entity e) -> {
             
-            if(canvas.contains(e.getHitBox().getLocation())) {
-                e.setVisible(true);
+        //se almeno un angolo dell'entità compare a schermo allora disegno l'entità
+            if(contains(e)) {
                 graphics.drawImage(e.getFrame(), e.getX(), e.getY(), null);
             }
-            else 
-                e.setVisible(false);
         });
-
 
         graphics.dispose();
         bufferStrategy.show();
     }
 
-
-    public int getHeight() {return BOARD_HEIGHT;}
-    public int getWidth() {return BOARD_WIDTH;}
+//controlla che almeno uno dei quattro angoli sia presente a schermo
+    public boolean contains(Entity e) {
+        
+        return (canvas.contains(e.gePosition().getTopLeft()) 
+        || canvas.contains(e.gePosition().getTopRight())
+        || canvas.contains(e.gePosition().getBottomLeft())
+        || canvas.contains(e.gePosition().getBottomRight()));        
+    }
 }

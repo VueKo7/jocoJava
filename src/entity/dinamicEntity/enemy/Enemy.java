@@ -33,7 +33,17 @@ public class Enemy extends MovingEntity {
 
 
 
+    @Override
+    public void lightAttack() {
+        
+    }
 
+
+
+    @Override
+    public void heavyAttack() {
+        
+    }
 
 
 

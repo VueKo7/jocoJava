@@ -1,6 +1,7 @@
 package entity.dinamicEntity.player;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 import entity.Entity;
 import entity.dinamicEntity.MovingEntity;
@@ -59,8 +60,8 @@ public class Player extends MovingEntity {
         update_position();
 
         //camera following
-        getCamera().setX((int)getVector().getX());   
-        getCamera().setY((int)getVector().getY());
+        getCamera().setX((int)getVector().getX()-(int)getVector().getX()/3);   
+        getCamera().setY((int)getVector().getY()-(int)getVector().getY()/5);
 
         //Metodi settaggi della posizione del player(Appartiene ad entità)
         setX((int)getVector().getX());
@@ -81,9 +82,9 @@ public class Player extends MovingEntity {
     public int calcYdirection() {
 
         int dY = 0;
-        if(input.getKeyState(KeyEvent.VK_W)) //VK_W is pressed | going up
+        if(input.getMoveSetBuffer_KeyState(KeyEvent.VK_W)) //VK_W is pressed | going up
             dY = -1;   
-        else if(input.getKeyState(KeyEvent.VK_S)) //VK_S is pressed | going down
+        else if(input.getMoveSetBuffer_KeyState(KeyEvent.VK_S)) //VK_S is pressed | going down
             dY = 1;
 
         return dY;
@@ -93,9 +94,9 @@ public class Player extends MovingEntity {
     public int calcXdirection() {
         
         int dX = 0;
-        if(input.getKeyState(KeyEvent.VK_A)) //VK_A is pressed | going left
+        if(input.getMoveSetBuffer_KeyState(KeyEvent.VK_A)) //VK_A is pressed | going left
             dX = -1;   
-        else if(input.getKeyState(KeyEvent.VK_D)) //VK_D is pressed | goign right
+        else if(input.getMoveSetBuffer_KeyState(KeyEvent.VK_D)) //VK_D is pressed | goign right
             dX = 1;
 
         return dX;
@@ -120,8 +121,6 @@ public class Player extends MovingEntity {
         //getting the speed(needed for collision check)
         int speed = getSpeed();
 
-        
-        
 
 
         for(Entity obstacle : Entity.getEntities())
@@ -201,6 +200,23 @@ public class Player extends MovingEntity {
     }
 
    
+    @Override
+    public void lightAttack() {
+
+        if(input.getClickBuffer_ClickState(MouseEvent.BUTTON1))
+            System.out.println("FKDKFKSDFKSFDK");
+    }
+
+
+
+    @Override
+    public void heavyAttack() {
+        
+    }
+
+
+
+
 
 
     @Override
@@ -208,6 +224,7 @@ public class Player extends MovingEntity {
         while(getHp() > 0) {
             try {
                 move();
+                lightAttack();
                 Thread.sleep(15);
             } catch (Exception e) {
                 e.printStackTrace();
