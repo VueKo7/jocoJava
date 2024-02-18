@@ -1,5 +1,10 @@
 package game;
+<<<<<<< HEAD
 import input.KeyboardInput;
+=======
+import input.MovesetInput;
+import input.GUI_Input;
+>>>>>>> 9602fc39f3ad420789f15827962d3aa85957904b
 import input.MouseInput;
 import entity.Entity;
 
@@ -14,7 +19,11 @@ public class Display extends JFrame {
 
     private Canvas canvas;
 
+<<<<<<< HEAD
     public Display(KeyboardInput keyboardInput, MouseInput mouseInput) {
+=======
+    public Display(MovesetInput movesetInput, MouseInput mouseInput, GUI_Input GUI_input) {
+>>>>>>> 9602fc39f3ad420789f15827962d3aa85957904b
         setTitle("My Awesome 2D game.Game");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -25,7 +34,12 @@ public class Display extends JFrame {
         add(canvas);
 
         canvas.addMouseListener(mouseInput);
+<<<<<<< HEAD
         this.addKeyListener(keyboardInput);
+=======
+        this.addKeyListener(movesetInput);
+        this.addKeyListener(GUI_input);
+>>>>>>> 9602fc39f3ad420789f15827962d3aa85957904b
         
         pack();
 
