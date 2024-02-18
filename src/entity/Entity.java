@@ -37,8 +37,6 @@ public abstract class Entity {
         hp = 100;
 
         dinamic = false;
-
-        position.setPoints(this);
     }
 
 

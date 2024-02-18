@@ -1,5 +1,7 @@
 package game;
-import input.Input;
+import input.MovesetInput;
+import input.GUI_Input;
+import input.MouseInput;
 import entity.Entity;
 
 import javax.swing.*;
@@ -13,7 +15,7 @@ public class Display extends JFrame {
 
     private Canvas canvas;
 
-    public Display(Input input) {
+    public Display(MovesetInput movesetInput, MouseInput mouseInput, GUI_Input GUI_input) {
         setTitle("My Awesome 2D game.Game");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -23,8 +25,9 @@ public class Display extends JFrame {
         canvas.setFocusable(false);
         add(canvas);
 
-        addMouseListener(input);
-        addKeyListener(input);
+        canvas.addMouseListener(mouseInput);
+        this.addKeyListener(movesetInput);
+        this.addKeyListener(GUI_input);
         
         pack();
 
@@ -63,9 +66,17 @@ public class Display extends JFrame {
 
         //visualizzazione entità a schermo
         Entity.getEntities().forEach((Entity e) -> {
+
+        //ottengo tutti gli angoli dell'enità
+            Point topLeft = new Point(e.getX(), e.getY());
+            Point topRight = new Point(e.getX()+e.getWidth(), e.getY());
+            Point bottomLeft = new Point(e.getX(), e.getY()+e.getHeight());
+            Point bottomRight = new Point(e.getX()+e.getWidth(), e.getY()+e.getHeight());
+            Point leftFuoco = new Point(e.getX()+e.getWidth()/3, e.getY()+e.getHeight()/2);
+            Point rightFuoco = new Point(e.getX()+(e.getWidth()-e.getWidth()/3), e.getY()+e.getHeight()/2);
             
         //se almeno un angolo dell'entità compare a schermo allora disegno l'entità
-            if(contains(e)) {
+            if(contains(topLeft, topRight, bottomLeft, bottomRight, leftFuoco, rightFuoco)) {
                 graphics.drawImage(e.getFrame(), e.getX(), e.getY(), null);
             }
         });
@@ -75,11 +86,15 @@ public class Display extends JFrame {
     }
 
 //controlla che almeno uno dei quattro angoli sia presente a schermo
-    public boolean contains(Entity e) {
+    public boolean contains(Point topLeft, Point topRight, Point bottomLeft, Point bottomRight, Point leftFuoco, Point rightFuoco) {
         
-        return (canvas.contains(e.gePosition().getTopLeft()) 
-        || canvas.contains(e.gePosition().getTopRight())
-        || canvas.contains(e.gePosition().getBottomLeft())
-        || canvas.contains(e.gePosition().getBottomRight()));        
+        return (canvas.contains(topLeft) 
+        || canvas.contains(topRight)
+        || canvas.contains(bottomLeft)
+        || canvas.contains(bottomRight)
+        || canvas.contains(leftFuoco)
+        || canvas.contains(rightFuoco));
     }
+
+   
 }

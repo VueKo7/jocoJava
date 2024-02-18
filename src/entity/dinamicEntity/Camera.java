@@ -28,15 +28,14 @@ public class Camera {
 
     //MOVES THE CAMERA IN RELATION OF THE DISPLAY DIM
 //******************************************************************************************** */
-  
 
-        
-    
+
+
+
 
     
     //CAMERA TO FRAME_DISPLAY COLLISION
 //******************************************************************************************** */
-
     public boolean frame_collisionX(int dX) {
         
         return (getX()+dX <= 0 //from left to right
