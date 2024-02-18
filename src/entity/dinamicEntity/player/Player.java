@@ -6,15 +6,17 @@ import java.awt.event.MouseEvent;
 import entity.Entity;
 import entity.dinamicEntity.MovingEntity;
 import entity.dinamicEntity.Vector2D;
-import input.Input;
+import input.KeyboardInput;
+import input.MouseInput;
 //Classe utilizzata per gestire il player.Utilizza Input, Movement e Vector 2D.
 //Figlia di Entyty, quindi controllare la mommy. Viene richiamata dal Game
 public class Player extends MovingEntity {
 
     //attributi + quelli ereditati da Entity
     //Camera camera;
-    Input input;
-    
+    MouseInput mouseInput;
+    KeyboardInput keyboardInput;
+
     //Position position;
     //Size size;
     //Image icon;
@@ -28,11 +30,12 @@ public class Player extends MovingEntity {
     //imgSrc=percorso dell'immagine
     //hitBox=rettangolo che delinea lo spazio dell'entita'
 
-    public Player(int x, int y, int width, int height, Input input) {
+    public Player(int x, int y, int width, int height, KeyboardInput keyboardInput, MouseInput mouseInput) {
         
         super(x, y, width, height);
         
-        this.input = input;
+        this.keyboardInput = keyboardInput;
+        this.mouseInput = mouseInput;
         getHitBox().translate(width/4, height/4);
         getHitBox().setSize(width/2, height/2);
 
@@ -60,8 +63,8 @@ public class Player extends MovingEntity {
         update_position();
 
         //camera following
-        getCamera().setX((int)getVector().getX()-(int)getVector().getX()/3);   
-        getCamera().setY((int)getVector().getY()-(int)getVector().getY()/5);
+        getCamera().setX((int)getVector().getX());   
+        getCamera().setY((int)getVector().getY());
 
         //Metodi settaggi della posizione del player(Appartiene ad entità)
         setX((int)getVector().getX());
@@ -82,9 +85,9 @@ public class Player extends MovingEntity {
     public int calcYdirection() {
 
         int dY = 0;
-        if(input.getMoveSetBuffer_KeyState(KeyEvent.VK_W)) //VK_W is pressed | going up
+        if(keyboardInput.getKeyState(KeyEvent.VK_W)) //VK_W is pressed | going up
             dY = -1;   
-        else if(input.getMoveSetBuffer_KeyState(KeyEvent.VK_S)) //VK_S is pressed | going down
+        else if(keyboardInput.getKeyState(KeyEvent.VK_S)) //VK_S is pressed | going down
             dY = 1;
 
         return dY;
@@ -94,9 +97,9 @@ public class Player extends MovingEntity {
     public int calcXdirection() {
         
         int dX = 0;
-        if(input.getMoveSetBuffer_KeyState(KeyEvent.VK_A)) //VK_A is pressed | going left
+        if(keyboardInput.getKeyState(KeyEvent.VK_A)) //VK_A is pressed | going left
             dX = -1;   
-        else if(input.getMoveSetBuffer_KeyState(KeyEvent.VK_D)) //VK_D is pressed | goign right
+        else if(keyboardInput.getKeyState(KeyEvent.VK_D)) //VK_D is pressed | goign right
             dX = 1;
 
         return dX;
@@ -203,7 +206,7 @@ public class Player extends MovingEntity {
     @Override
     public void lightAttack() {
 
-        if(input.getClickBuffer_ClickState(MouseEvent.BUTTON1))
+        if(mouseInput.getClickState(MouseEvent.BUTTON1))
             System.out.println("FKDKFKSDFKSFDK");
     }
 
@@ -226,6 +229,7 @@ public class Player extends MovingEntity {
                 move();
                 lightAttack();
                 Thread.sleep(15);
+                Thread.yield();
             } catch (Exception e) {
                 e.printStackTrace();
             }
