@@ -6,7 +6,12 @@ import java.awt.event.MouseEvent;
 import entity.Entity;
 import entity.dinamicEntity.MovingEntity;
 import entity.dinamicEntity.Vector2D;
+<<<<<<<<< Temporary merge branch 1
+import input.MovesetInput;
+import input.GUI_Input;
+=========
 import input.KeyboardInput;
+>>>>>>>>> Temporary merge branch 2
 import input.MouseInput;
 //Classe utilizzata per gestire il player.Utilizza Input, Movement e Vector 2D.
 //Figlia di Entyty, quindi controllare la mommy. Viene richiamata dal Game
@@ -15,7 +20,12 @@ public class Player extends MovingEntity {
     //attributi + quelli ereditati da Entity
     //Camera camera;
     MouseInput mouseInput;
+<<<<<<<<< Temporary merge branch 1
+    MovesetInput movesetInput;
+    GUI_Input GUI_input;
+=========
     KeyboardInput keyboardInput;
+>>>>>>>>> Temporary merge branch 2
 
     //Position position;
     //Size size;
@@ -30,12 +40,22 @@ public class Player extends MovingEntity {
     //imgSrc=percorso dell'immagine
     //hitBox=rettangolo che delinea lo spazio dell'entita'
 
+<<<<<<<<< Temporary merge branch 1
+    public Player(int x, int y, int width, int height, MovesetInput movesetInput, MouseInput mouseInput, GUI_Input GUI_input) {
+        
+        super(x, y, width, height);
+        
+        this.movesetInput = movesetInput;
+        this.mouseInput = mouseInput;
+        this.GUI_input = GUI_input;
+=========
     public Player(int x, int y, int width, int height, KeyboardInput keyboardInput, MouseInput mouseInput) {
         
         super(x, y, width, height);
         
         this.keyboardInput = keyboardInput;
         this.mouseInput = mouseInput;
+>>>>>>>>> Temporary merge branch 2
         getHitBox().translate(width/4, height/4);
         getHitBox().setSize(width/2, height/2);
 
@@ -85,9 +105,15 @@ public class Player extends MovingEntity {
     public int calcYdirection() {
 
         int dY = 0;
+<<<<<<<<< Temporary merge branch 1
+        if(movesetInput.getKeyState(KeyEvent.VK_W)) //VK_W is pressed | going up
+            dY = -1;   
+        else if(movesetInput.getKeyState(KeyEvent.VK_S)) //VK_S is pressed | going down
+=========
         if(keyboardInput.getKeyState(KeyEvent.VK_W)) //VK_W is pressed | going up
             dY = -1;   
         else if(keyboardInput.getKeyState(KeyEvent.VK_S)) //VK_S is pressed | going down
+>>>>>>>>> Temporary merge branch 2
             dY = 1;
 
         return dY;
@@ -97,9 +123,15 @@ public class Player extends MovingEntity {
     public int calcXdirection() {
         
         int dX = 0;
+<<<<<<<<< Temporary merge branch 1
+        if(movesetInput.getKeyState(KeyEvent.VK_A)) //VK_A is pressed | going left
+            dX = -1;   
+        else if(movesetInput.getKeyState(KeyEvent.VK_D)) //VK_D is pressed | goign right
+=========
         if(keyboardInput.getKeyState(KeyEvent.VK_A)) //VK_A is pressed | going left
             dX = -1;   
         else if(keyboardInput.getKeyState(KeyEvent.VK_D)) //VK_D is pressed | goign right
+>>>>>>>>> Temporary merge branch 2
             dX = 1;
 
         return dX;
