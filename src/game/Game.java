@@ -3,16 +3,7 @@ import entity.Entity;
 import entity.dinamicEntity.Camera;
 import entity.dinamicEntity.player.Player;
 import entity.staticEntity.Obstacle;
-<<<<<<< HEAD
 import input.KeyboardInput;
-=======
-<<<<<<< HEAD
-import input.KeyboardInput;
-=======
-import input.MovesetInput;
-import input.GUI_Input;
->>>>>>> 9602fc39f3ad420789f15827962d3aa85957904b
->>>>>>> b458b0f4cdde5bba34b1f4f0952524746caceecd
 import input.MouseInput;
 
 public class Game {
@@ -23,19 +14,8 @@ public class Game {
     Obstacle wall;
     Obstacle wall1;
     
-<<<<<<< HEAD
     KeyboardInput keyboardInput;
     MouseInput mouseInput;
-=======
-<<<<<<< HEAD
-    KeyboardInput keyboardInput;
-    MouseInput mouseInput;
-=======
-    MovesetInput movesetInput;
-    MouseInput mouseInput;
-    GUI_Input GUI_input;
->>>>>>> 9602fc39f3ad420789f15827962d3aa85957904b
->>>>>>> b458b0f4cdde5bba34b1f4f0952524746caceecd
     Display display;
     Camera camera;
 
@@ -43,26 +23,11 @@ public class Game {
     public Game() {
 
         //input viene passato al frame per addKeyListener()
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> b458b0f4cdde5bba34b1f4f0952524746caceecd
         keyboardInput = new KeyboardInput();
         mouseInput = new MouseInput();
         display = new Display(keyboardInput, mouseInput);
 
         player = new Player(display.getWidth()/2, display.getHeight()/2, 100, 150, keyboardInput, mouseInput);
-<<<<<<< HEAD
-=======
-=======
-        movesetInput = new MovesetInput();
-        mouseInput = new MouseInput();
-        GUI_input = new GUI_Input();
-        display = new Display(movesetInput, mouseInput, GUI_input);
-
-        player = new Player(display.getWidth()/2, display.getHeight()/2, 100, 150, movesetInput, mouseInput, GUI_input);
->>>>>>> 9602fc39f3ad420789f15827962d3aa85957904b
->>>>>>> b458b0f4cdde5bba34b1f4f0952524746caceecd
         playerThread = new Thread(player);
         playerThread.start();
 
