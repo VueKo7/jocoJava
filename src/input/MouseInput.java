@@ -35,5 +35,8 @@ public class MouseInput implements MouseListener {
     public void mouseEntered(MouseEvent e) {}
     //Metodo che quando il cursore esce da una zona...
     @Override
-    public void mouseExited(MouseEvent e) {}    
+    public void mouseExited(MouseEvent e) {}
+
+
+    public void setClickState(int i, boolean b) {clickBuffer[i] = b;}    
 }

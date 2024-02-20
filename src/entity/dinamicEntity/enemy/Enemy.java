@@ -1,9 +1,10 @@
 package entity.dinamicEntity.enemy;
 
+import entity.dinamicEntity.Attack;
 import entity.dinamicEntity.Camera;
 import entity.dinamicEntity.MovingEntity;
 
-public class Enemy extends MovingEntity {
+public class Enemy extends MovingEntity implements Attack{
 
     Camera camera;
 

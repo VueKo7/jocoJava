@@ -4,18 +4,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import entity.Entity;
+import entity.dinamicEntity.Attack;
 import entity.dinamicEntity.MovingEntity;
 import entity.dinamicEntity.Vector2D;
 import input.KeyboardInput;
 import input.MouseInput;
 //Classe utilizzata per gestire il player.Utilizza Input, Movement e Vector 2D.
 //Figlia di Entyty, quindi controllare la mommy. Viene richiamata dal Game
-public class Player extends MovingEntity {
+public class Player extends MovingEntity implements Attack {
 
     //attributi + quelli ereditati da Entity
     //Camera camera;
     MouseInput mouseInput;
     KeyboardInput keyboardInput;
+    int tempo;
 
     //Position position;
     //Size size;
@@ -206,8 +208,10 @@ public class Player extends MovingEntity {
     @Override
     public void lightAttack() {
 
-        if(mouseInput.getClickState(MouseEvent.BUTTON1))
-            System.out.println("FKDKFKSDFKSFDK");
+        if(mouseInput.getClickState(MouseEvent.BUTTON1)) {
+            mouseInput.setClickState(MouseEvent.BUTTON1, false);
+            System.out.println("BUTTON1");
+        }
     }
 
 
@@ -215,6 +219,16 @@ public class Player extends MovingEntity {
     @Override
     public void heavyAttack() {
         
+        if(mouseInput.getClickState(MouseEvent.BUTTON3)) {
+            System.out.println(tempo);
+            if(tempo >= 50) {
+                System.out.println("BUTTON3");
+                mouseInput.setClickState(MouseEvent.BUTTON3, false);
+                tempo = 0;
+            }
+            tempo++;
+        } else
+            tempo = 0;
     }
 
 
@@ -228,8 +242,8 @@ public class Player extends MovingEntity {
             try {
                 move();
                 lightAttack();
+                heavyAttack();
                 Thread.sleep(15);
-                Thread.yield();
             } catch (Exception e) {
                 e.printStackTrace();
             }
