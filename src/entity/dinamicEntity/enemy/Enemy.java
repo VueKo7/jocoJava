@@ -23,14 +23,15 @@ public class Enemy extends MovingEntity implements Attack{
         String[] standingStill = {"icons/hero/standStill/standingStill1.png",
                                 "icons/hero/standStill/standingStill2.png"};
         
-        setStillSprites(standingStill);
-        setLeftSprites(movingLeft);
-        setRightSprites(movingRight);
+        super.setStillSprites(standingStill);
+        super.setLeftSprites(movingLeft);
+        super.setRightSprites(movingRight);
 
         setCamera(new Camera(x, y, width, height, this));
 
     }
 
+    
 
 
 

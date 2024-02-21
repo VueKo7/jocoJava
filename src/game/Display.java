@@ -51,7 +51,6 @@ public class Display extends JFrame {
         graphics.setColor(Color.RED);
         graphics.drawRect(game.player.getCamera().getX(), game.player.getCamera().getY(), game.player.getCamera().getWidth(), game.player.getCamera().getHeight());
 
-
         //visualizzazione personaggio
         graphics.drawImage(game.player.getFrame(), game.player.getX(), game.player.getY(), null);
         
@@ -61,7 +60,22 @@ public class Display extends JFrame {
         graphics.setColor(Color.RED);
         graphics.drawRect(game.player.getXHitbox(), game.player.getYHitbox(), game.player.getHitBoxWidth(), game.player.getHitBoxHeight());
 
+        //camera mostro?
+        
+        graphics.setColor(Color.RED);
+        graphics.drawRect(game.enemy.getCamera().getX(), game.enemy.getCamera().getY(), game.enemy.getCamera().getWidth(), game.enemy.getCamera().getHeight());
+        
+        
+        //Visualizzazione Nemico?
+        
+        graphics.drawImage(game.enemy.getFrame(), game.enemy.getX(), game.enemy.getY(), null);
 
+        graphics.setColor(Color.BLUE);
+        graphics.drawRect(game.enemy.getX(), game.enemy.getY(), game.enemy.getWidth(), game.enemy.getHeight());
+        
+        graphics.setColor(Color.RED);
+        graphics.drawRect(game.enemy.getXHitbox(), game.enemy.getYHitbox(), game.enemy.getHitBoxWidth(), game.enemy.getHitBoxHeight());
+        
         //visualizzazione entità a schermo
         Entity.getEntities().forEach((Entity e) -> {
 

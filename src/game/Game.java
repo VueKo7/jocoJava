@@ -2,6 +2,9 @@ package game;
 import entity.Entity;
 import entity.dinamicEntity.Camera;
 import entity.dinamicEntity.player.Player;
+
+import entity.dinamicEntity.enemy.Enemy;
+
 import entity.staticEntity.Obstacle;
 import input.KeyboardInput;
 import input.MouseInput;
@@ -10,6 +13,9 @@ public class Game {
 
     Player player;
     Thread playerThread;
+
+    Enemy enemy;
+    Thread enemyThread;
 
     Obstacle wall;
     Obstacle wall1;
@@ -31,10 +37,14 @@ public class Game {
         playerThread = new Thread(player);
         playerThread.start();
 
-
+        enemy=new Enemy(500, 600, 100, 150);
+        enemyThread=new Thread(enemy);
+        enemyThread.start();
+    
         wall = new Obstacle(300, 500, 2000, 50);
         wall1 = new Obstacle(300, 200, 200, 50);
-        
+
+        Entity.addEntity(enemy);
         Entity.addEntity(wall);
         Entity.addEntity(wall1);
 	}	
