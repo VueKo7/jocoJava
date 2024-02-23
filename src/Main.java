@@ -6,5 +6,5 @@ public class Main {
         new Thread(new GameLoop(new Game())).start();
     }
 
-    //SCEMO CHI LEGGE
+    //SCEMO CHI LEGGEd
 }

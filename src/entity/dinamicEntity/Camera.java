@@ -10,16 +10,17 @@ package entity.dinamicEntity;
 
 import java.awt.Rectangle;
 
+import entity.Entity;
 import game.Display;
 
 
 public class Camera {
     
-    MovingEntity observer;
-    Rectangle cameraArea;
+    private Rectangle cameraArea;
+    Entity observer;
 
 
-    public Camera(int x, int y, int width, int height, MovingEntity observer) {
+    public Camera(int x, int y, int width, int height, Entity observer) {
         cameraArea = new Rectangle(x, y, width, height);
         this.observer = observer;
     }
@@ -49,21 +50,46 @@ public class Camera {
     }
  
 
-    //ENTITY TO CAMERA COLLISION(ENGAGE)
+            //ENTITY TO CAMERA COLLISION(ENGAGE)
 //******************************************************************************************** */
-    public boolean camera_collisionX(MovingEntity e) {
+/*
+public boolean camera_collisionX(MovingEntity e) {
 
-        return (observer.getX()+observer.getDirectionX()*observer.getSpeed() <= getX() //from left to right
-        || observer.getX()+observer.getWidth()+e.getDirectionX()*observer.getSpeed() >= getX()+getWidth()); //form right to left
+    return (observer.getX()+observer.getDirectionX()*observer.getSpeed() <= getX() //from left to right
+    || observer.getX()+observer.getWidth()+e.getDirectionX()*observer.getSpeed() >= getX()+getWidth()); //form right to left
+}
+
+public boolean camera_collisionY(MovingEntity e) {
+
+    return (observer.getY()+observer.getDirectionY()*observer.getSpeed() <= getY() //from down to up
+    || observer.getY()+observer.getHeight()+observer.getDirectionY()*observer.getSpeed() >= getY()+getHeight()); //from up to down
+}
+//******************************************************************************************** */
+
+        //COLLISIONI
+//************************************************************* */
+    public boolean collisionX(Entity entity, int dX) {
+
+        int observerX = observer.getHitBox().x;
+        int observerWidth = observer.getHitBox().width;
+
+        int entityX = entity.getHitBox().x;
+        int entityWidth = entity.getHitBox().width;
+
+        return (observerX+observerWidth+dX >= entityX && observerX+dX <= entityX+entityWidth); 
     }
 
-    public boolean camera_collisionY(MovingEntity e) {
+    public boolean collisionY(Entity entity, int dY) {
 
-        return (observer.getY()+observer.getDirectionY()*observer.getSpeed() <= getY() //from down to up
-        || observer.getY()+observer.getHeight()+observer.getDirectionY()*observer.getSpeed() >= getY()+getHeight()); //from up to down
+        int observerY = observer.getHitBox().y;
+        int observerHeight = observer.getHitBox().height;
+
+        int entityY = entity.getHitBox().y;
+        int entityHeight = entity.getHitBox().height;
+
+        return (observerY+observerHeight+dY >= entityY && observerY+dY <= entityY+entityHeight); 
     }
-//******************************************************************************************** */
-
+//********************************************************* */
 
     public void update_position(int x, int y) {cameraArea.translate(x, y);}
     
@@ -75,4 +101,7 @@ public class Camera {
 
     public int getWidth() {return cameraArea.width;}
     public int getHeight() {return cameraArea.height;}
+
+    public Rectangle getCameraArea() {return cameraArea;}
+    public void setCameraArea(Rectangle cameraArea) {this.cameraArea = cameraArea;}
 }

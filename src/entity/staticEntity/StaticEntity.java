@@ -3,7 +3,7 @@ package entity.staticEntity;
 import entity.Entity;
 import utility.MyPanel;
 
-public class StaticEntity extends Entity{
+public class StaticEntity extends Entity {
 
     MyPanel panel;
 
@@ -12,12 +12,10 @@ public class StaticEntity extends Entity{
         super(x, y, width, height);
         panel = new MyPanel(x, y, width, height);
         setVisible(false);
-        setDinamic(false);
     }
     
 
     public boolean isVisibile() {return panel.isVisible();}
     public void setVisible(boolean b) {panel.setVisible(b);}
-
 
 }

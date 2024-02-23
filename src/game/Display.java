@@ -17,7 +17,7 @@ public class Display extends JFrame {
     public Display(KeyboardInput keyboardInput, MouseInput mouseInput) {
         setTitle("My Awesome 2D game.Game");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
+        setResizable(true);
 
         canvas = new Canvas();
         canvas.setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));

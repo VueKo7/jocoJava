@@ -52,6 +52,7 @@ public class Player extends MovingEntity implements Attack {
         super.setStillSprites(standingStill);
         super.setLeftSprites(movingLeft);
         super.setRightSprites(movingRight);
+
     }
     
 
@@ -62,11 +63,13 @@ public class Player extends MovingEntity implements Attack {
     public void move() { //Methodo per far muovere il player
         
         //determina la direzione del personaggio controllando tutte le collisioni
-        update_position();
+        this.update_position();
+
+        //aggiorna lo sprite
+        this.update_sprite();
 
         //camera following
-        getCamera().setX((int)getVector().getX());   
-        getCamera().setY((int)getVector().getY());
+        getCamera().update_position((int)getVector().getX(), (int)getVector().getY());
 
         //Metodi settaggi della posizione del player(Appartiene ad entità)
         setX((int)getVector().getX());
@@ -74,9 +77,6 @@ public class Player extends MovingEntity implements Attack {
 
         setXHitbox((int)getVector().getX());
         setYHitbox((int)getVector().getY());
-
-        //aggiorna lo sprite
-        update_sprite();
     }
 
 
@@ -126,76 +126,87 @@ public class Player extends MovingEntity implements Attack {
         //getting the speed(needed for collision check)
         int speed = getSpeed();
 
+        boolean xCollision;
+        boolean yCollision;
 
 
         for(Entity obstacle : Entity.getEntities())
         {
+            //Se nella camera del player è presente un'entità allora controlla le collisioni
+            if(getCamera().getCameraArea().intersects(obstacle.getHitBox()))
+            {
+                xCollision = getCamera().collisionX(obstacle, getDirectionX()*speed);
+                yCollision = getCamera().collisionY(obstacle, getDirectionY()*speed);
 
-            boolean xCollision = collisionX(obstacle, getDirectionX()*speed);
-            boolean yCollision = collisionY(obstacle, getDirectionY()*speed);
+                //check if you actually collide with the obstacle
+                if(yCollision && xCollision)
+                {      
+            /*CONTROLLO CHE SERVE VENGA CONSULTATO SOLO DOPO CHE IL PLAYER CAMBIA DIREZIONE
+            * 
+            * DOMINIO DI COLLISIONE: tutto lo spazio verticale determinato dalla LARGHEZZA dell'ostacolo
+            * CODOMINIO DI COLLISIONE: tutto lo spazio orizzontale determinato dall'ALTEZZA dell'ostacolo
+            * 
+            * esempio:
+            * mi sto muovendo dal basso verso l'alto trovandomi sotto ad un ostacolo QUINDI:
+            * in X sono in costante collisione(dominio di collisione)
+            * in Y sarò in collisione non appena mi scontro in Y con l'ostacolo(codominio di collisione)
+            * 
+            * appena mi scontro in Y controllo che nella direzione opposta (-directionY) ci sia un ostacolo
+            * mentre mi sto spostando verso questo ostacolo dietro di me sarà libero:
+            * il controllo collisione mi darà quindi FALSE perchè non sto collidendo nella direzioneo opposta
+            * quindi negato nell'IF avrò TRUE e quindi la directionY sarà posta a 0
+            * 
+            * caso 1: cambio direzione e vado verso il basso
+            * la directionY viene aggiornata sopra e il primo controllo di collisione darà FALSE
+            * allora questo if NON viene eseguito e il giocatore riesce ad andare verso il basso
+            * 
+            * caso 2: cambio direzione e vado verso destra/sinistra
+            * in X mi trovo nel dominio di collisione
+            * il controllo di collisione darà TRUE che negato è FALSE quindi la mia getDirectionX() rimane invariata
+            */
 
-            //check if you actually collide with the obstacle
-            if(yCollision && xCollision)
-            {      
-        /*CONTROLLO CHE SERVE VENGA CONSULTATO SOLO DOPO CHE IL PLAYER CAMBIA DIREZIONE
-        * 
-        * DOMINIO DI COLLISIONE: tutto lo spazio verticale determinato dalla LARGHEZZA dell'ostacolo
-        * CODOMINIO DI COLLISIONE: tutto lo spazio orizzontale determinato dall'ALTEZZA dell'ostacolo
-        * 
-        * esempio:
-        * mi sto muovendo dal basso verso l'alto trovandomi sotto ad un ostacolo QUINDI:
-        * in X sono in costante collisione(dominio di collisione)
-        * in Y sarò in collisione non appena mi scontro in Y con l'ostacolo(codominio di collisione)
-        * 
-        * appena mi scontro in Y controllo che nella direzione opposta (-directionY) ci sia un ostacolo
-        * mentre mi sto spostando verso questo ostacolo dietro di me sarà libero:
-        * il controllo collisione mi darà quindi FALSE perchè non sto collidendo nella direzioneo opposta
-        * quindi negato nell'IF avrò TRUE e quindi la directionY sarà posta a 0
-        * 
-        * caso 1: cambio direzione e vado verso il basso
-        * la directionY viene aggiornata sopra e il primo controllo di collisione darà FALSE
-        * allora questo if NON viene eseguito e il giocatore riesce ad andare verso il basso
-        * 
-        * caso 2: cambio direzione e vado verso destra/sinistra
-        * in X mi trovo nel dominio di collisione
-        * il controllo di collisione darà TRUE che negato è FALSE quindi la mia getDirectionX() rimane invariata
-        */
+                    //dopo aver cambiato direzione, domanda se alle sue spalle ha un ostacolo
+                    xCollision = getCamera().collisionX(obstacle, -getDirectionX()*speed);
+                    yCollision = getCamera().collisionY(obstacle, -getDirectionY()*speed);
+                    
+                    //impone che tu NON abbia un'ostacolo a destra/sinistra per fermarti in X
+                    if(!xCollision)
+                        setDirectionX(0);
+                    
+                    //impone che tu NON abbia un'ostacolo sopra/sotto per fermarti in Y
+                    if(!yCollision)
+                        setDirectionY(0);
+                }
 
-                //dopo aver cambiato direzione, domanda se alle sue spalle ha un ostacolo
-                boolean reverseXCollision = collisionX(obstacle, -getDirectionX()*speed);
-                boolean reverseYCollision = collisionY(obstacle, -getDirectionY()*speed);
-                
-                //impone che tu NON abbia un'ostacolo a destra/sinistra per fermarti in X
-                if(!reverseXCollision)
-                    setDirectionX(0);
-                
-                //impone che tu NON abbia un'ostacolo sopra/sotto per fermarti in Y
-                if(!reverseYCollision)
-                    setDirectionY(0);
-
-                break;
             }
-
         }
 
 
-        if(getCamera().frame_collisionX(getDirectionX()*speed) || getCamera().frame_collisionY(getDirectionY()*speed))
+        //se il player collide con il bordo schermo con la camera allora tutte le entità si muovono nella direzione opposta
+        xCollision = getCamera().frame_collisionX(getDirectionX()*speed);
+        yCollision = getCamera().frame_collisionY(getDirectionY()*speed);
+
+        if(xCollision || yCollision)
         {
             for(Entity entity : Entity.getEntities()) {
-            
-                entity.setX(-getDirectionX()*speed);
-                entity.setXHitbox(-getDirectionX()*speed);
 
-                entity.setYHitbox(-getDirectionY()*speed);
-                entity.setY(-getDirectionY()*speed);
+                    entity.setX(-getDirectionX()*speed);
+                    entity.setXHitbox(-getDirectionX()*speed);
+                    entity.getCamera().setX(-getDirectionX()*speed);
+
+                    entity.setY(-getDirectionY()*speed);
+                    entity.setYHitbox(-getDirectionY()*speed);
+                    entity.getCamera().setY(-getDirectionY()*speed);
             }
 
-            if(getCamera().frame_collisionX(getDirectionX()*speed))
+            if(xCollision)
                 setDirectionX(0);
 
-            if(getCamera().frame_collisionY(getDirectionY()*speed))
+            if(yCollision)
                 setDirectionY(0);
+
         }
+
     
         //inizializzo il Vectore2D passandogli le direzioni x e y
         setVector(new Vector2D(getDirectionX(), getDirectionY())); 
@@ -250,5 +261,4 @@ public class Player extends MovingEntity implements Attack {
         }   
     }
    
-
 }

@@ -37,8 +37,8 @@ public class Game {
         playerThread = new Thread(player);
         playerThread.start();
 
-        enemy=new Enemy(500, 600, 100, 150);
-        enemyThread=new Thread(enemy);
+        enemy = new Enemy(500, 600, 100, 150);
+        enemyThread = new Thread(enemy);
         enemyThread.start();
     
         wall = new Obstacle(300, 500, 2000, 50);

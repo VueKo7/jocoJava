@@ -1,8 +1,11 @@
 package entity;
 
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+
+import entity.dinamicEntity.Camera;
 
 
 public abstract class Entity {
@@ -11,8 +14,7 @@ public abstract class Entity {
     private Position position;
     private Size size;
     private Rectangle hitBox;
-    private boolean dinamic;
-    private int hp;
+    private Camera camera;
 
     //Frame dello sprite che verrà disegnato
     public Image frame;
@@ -29,14 +31,11 @@ public abstract class Entity {
         //setting size
         size = new Size(width, height);
 
-        //setting defoutl hitbox
         //its OverWritten by MovingEntities & StaticEntity
         hitBox = new Rectangle(x, y, width, height);
 
-        //setting hp to default
-        hp = 100;
-
-        dinamic = false;
+        //Camera
+        camera = new Camera(getX()/2+getWidth()/2, getY()/2+getHeight()/2, getX(), getY(), this);
     }
 
 
@@ -65,6 +64,7 @@ public abstract class Entity {
     //set&get positionY
     public int getY() {return (int)position.getY();}
     public void setY(int y) {position.setY(y);}
+
     public Position gePosition() {return position;}
 
 
@@ -82,16 +82,16 @@ public abstract class Entity {
     public int getHitBoxHeight() {return (int)hitBox.getHeight();}
 
 
-    //hp
-    public int getHp() {return hp;}
-    public void setHp(int hp) {this.hp = hp;}
+    public Camera getCamera() {return camera;}
+    public void setCamera(Camera camera) {this.camera = camera;}
 
-
-    //dinamic
-    public boolean isDinamic() {return dinamic;}
-    public void setDinamic(boolean dinamic) {this.dinamic = dinamic;}
+    
 
 
     @Override
     public String toString() {return "{" + getX() + "," + getY() + "}";}
+
+
+
+    public Point getPoint() {return new Point(getX(), getY());}
 }

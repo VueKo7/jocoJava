@@ -25,46 +25,19 @@ public abstract class MovingEntity extends Entity implements Runnable, Movement 
     private int spriteTiming = 0;
     private int spriteSide = 1; //defoult
 
-    //to Interact whit other entities
-    Camera camera;
+    private int hp = 100;
 
 
     public MovingEntity(int x, int y, int width, int height) {
         super(x, y, width, height);
         vector = new Vector2D(0, 0);
-        setDinamic(true);
-
-        setCamera(new Camera(getX()/2+getWidth()/2, getY()/2+getHeight()/2, getX(), getY(), this));
     }
 
 
 
 
 
-        //COLLISIONI
-//************************************************************* */
-    public boolean collisionX(Entity entity, int dX) {
 
-        int playerX = getHitBox().x;
-        int playerWidth = getHitBox().width;
-
-        int entityX = entity.getHitBox().x;
-        int entityWidth = entity.getHitBox().width;
-
-        return (playerX+playerWidth+dX >= entityX && playerX+dX <= entityX+entityWidth); 
-    }
-
-    public boolean collisionY(Entity entity, int dY) {
-
-        int playerY = getHitBox().y;
-        int playerHeight = getHitBox().height;
-
-        int entityY = entity.getHitBox().y;
-        int entityHeight = entity.getHitBox().height;
-
-        return (playerY+playerHeight+dY >= entityY && playerY+dY <= entityY+entityHeight); 
-    }
-//********************************************************* */
 
 
 
@@ -156,13 +129,13 @@ public abstract class MovingEntity extends Entity implements Runnable, Movement 
 
 
     
+    //HP
+    public void setHp(int hp) {this.hp = hp;}
+    public int getHp() {return hp;}
 
+    
 
-
-
-    public void setCamera(Camera camera) {this.camera = camera;}
-    public Camera getCamera() {return camera;}
-
+    //SPRITES
     public Image[] getMovingRight() {return movingRight;}
     public void setMovingRight(Image[] movingRight) {this.movingRight = movingRight;}
 
@@ -172,6 +145,16 @@ public abstract class MovingEntity extends Entity implements Runnable, Movement 
     public Image[] getStandingStill() {return standingStill;}
     public void setStandingStill(Image[] standingStill) {this.standingStill = standingStill;}
 
+    public int getSpriteTiming() {return spriteTiming;}
+    public void setSpriteTiming(int spriteTiming) {this.spriteTiming = spriteTiming;}
+
+    public int getSpriteSide() {return spriteSide;}
+    public void setSpriteSide(int spriteSide) {this.spriteSide = spriteSide;}
+
+    public void setFacing(int facing) {this.facing = facing;}
+    public int getFacing() {return facing;}
+
+    //MOVEMENT
     public Vector2D getVector() {return vector;}
     public void setVector(Vector2D vector) {this.vector = vector;}
 
@@ -183,15 +166,6 @@ public abstract class MovingEntity extends Entity implements Runnable, Movement 
 
     public int getDirectionY() {return directionY;}
     public void setDirectionY(int directionY) {this.directionY = directionY;}
-
-    public int getSpriteTiming() {return spriteTiming;}
-    public void setSpriteTiming(int spriteTiming) {this.spriteTiming = spriteTiming;}
-
-    public int getSpriteSide() {return spriteSide;}
-    public void setSpriteSide(int spriteSide) {this.spriteSide = spriteSide;}
-
-    public void setFacing(int facing) {this.facing = facing;}
-    public int getFacing() {return facing;}
 
 
     //metodi che verranno sovrascritti da player/mostro/npc

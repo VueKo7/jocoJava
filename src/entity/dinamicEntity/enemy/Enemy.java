@@ -1,12 +1,10 @@
 package entity.dinamicEntity.enemy;
 
 import entity.dinamicEntity.Attack;
-import entity.dinamicEntity.Camera;
 import entity.dinamicEntity.MovingEntity;
 
 public class Enemy extends MovingEntity implements Attack{
 
-    Camera camera;
 
     public Enemy(int x, int y, int width, int height) {
 
@@ -26,9 +24,6 @@ public class Enemy extends MovingEntity implements Attack{
         super.setStillSprites(standingStill);
         super.setLeftSprites(movingLeft);
         super.setRightSprites(movingRight);
-
-        setCamera(new Camera(x, y, width, height, this));
-
     }
 
     
@@ -57,24 +52,6 @@ public class Enemy extends MovingEntity implements Attack{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public void run() {
         while(getHp() > 0) {
@@ -90,7 +67,6 @@ public class Enemy extends MovingEntity implements Attack{
     @Override
     public void move() {
         
-
     }
 
     @Override
@@ -108,6 +84,4 @@ public class Enemy extends MovingEntity implements Attack{
        return 0;
     }
 
-    
-    
 }
