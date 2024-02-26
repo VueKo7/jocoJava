@@ -175,3 +175,4 @@ public abstract class MovingEntity extends Entity implements Runnable, Movement 
     public abstract int calcXdirection();
     public abstract int calcYdirection();
 }
+

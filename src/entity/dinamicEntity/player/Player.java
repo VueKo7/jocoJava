@@ -249,16 +249,33 @@ public class Player extends MovingEntity implements Attack {
 
     @Override
     public void run() {
+        
+        final double updateRate = 1.0d/60.0d;
+
+        double accumulator = 0;
+        long currentTime, lastUpdate = System.currentTimeMillis();
+        //long nextStatTime = System.currentTimeMillis() + 1000;
+
         while(getHp() > 0) {
-            try {
-                move();
-                lightAttack();
-                heavyAttack();
-                Thread.sleep(15);
-            } catch (Exception e) {
-                e.printStackTrace();
+            currentTime = System.currentTimeMillis();
+            double lastRenderTimeInSeconds = (currentTime - lastUpdate) / 1000d;
+            accumulator += lastRenderTimeInSeconds;
+            lastUpdate = currentTime;
+
+            if(accumulator >= updateRate) {
+                while(accumulator >= updateRate) {
+                    
+                    try {
+                        move();
+                        lightAttack();
+                        heavyAttack();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    finally {accumulator -= updateRate;}
+                }
             }
-        }   
+        }
     }
    
 }
